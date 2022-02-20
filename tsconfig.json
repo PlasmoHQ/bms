@@ -3,7 +3,7 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "~*": ["./*"]
+      "~*": ["./src/*"]
     },
     "resolveJsonModule": true,
     "sourceMap": true,
@@ -17,10 +17,11 @@
     "moduleResolution": "node",
     "isolatedModules": true,
     "module": "commonjs",
-    "target": "es5",
-    "allowJs": true
+    "target": "es6",
+    "allowJs": true,
+    "importsNotUsedAsValues": "error"
   },
-  "include": ["index.ts"],
+  "include": ["src/**/*"],
   "ts-node": {
     "transpileOnly": true,
     "resolveJsonModule": true,
