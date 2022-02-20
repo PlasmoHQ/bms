@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "~*": ["./*"]
+    },
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": false,
+    "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "module": "commonjs",
+    "target": "es5",
+    "allowJs": true
+  },
+  "include": ["index.ts"],
+  "ts-node": {
+    "transpileOnly": true,
+    "resolveJsonModule": true,
+    "transpiler": "ts-node/transpilers/swc-experimental"
+  }
+}
