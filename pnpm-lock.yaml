@@ -2,7 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@plasmo-corp/cwu': 1.6.0
-  '@plasmo-corp/mwu': 1.3.0
+  '@plasmo-corp/mwu': 1.4.0
   '@swc/core': 1.2.143
   '@swc/helpers': 0.3.3
   '@trivago/prettier-plugin-sort-imports': 3.2.0
@@ -21,7 +21,7 @@ specifiers:
 
 dependencies:
   '@plasmo-corp/cwu': 1.6.0
-  '@plasmo-corp/mwu': 1.3.0
+  '@plasmo-corp/mwu': 1.4.0
   compare-versions: 4.1.3
   parse-duration: 1.0.2
   puppeteer: 13.3.2
@@ -315,8 +315,8 @@ packages:
       got: 11.8.3
     dev: false
 
-  /@plasmo-corp/mwu/1.3.0:
-    resolution: {integrity: sha512-CWJjMXtPrBXc+SKyLd6M7IEQ5JVVS187oW5xCMnfO2xISAwx1pliPdOa4IZZnaTYHSXIstfx8s3Xcx2hsCQg2A==}
+  /@plasmo-corp/mwu/1.4.0:
+    resolution: {integrity: sha512-zmliHM+70m8PQUot09i9mQJ3XFGxtc/1tPZ/EQ6ySZl6pjJZfptAOwPSpCRsHY4OcCpJgDM/bs6LHw4aUSQAfQ==}
     dependencies:
       sign-addon: 3.11.0
     dev: false
