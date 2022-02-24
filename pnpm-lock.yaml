@@ -15,7 +15,7 @@ specifiers:
   regenerator-runtime: 0.13.9
   ts-node: 10.5.0
   ts-node-dev: 1.1.8
-  tsc-alias: 1.6.1
+  tsc-alias: 1.6.3
   typescript: 4.5.5
   zip-local: ^0.3.5
 
@@ -37,7 +37,7 @@ devDependencies:
   regenerator-runtime: 0.13.9
   ts-node: 10.5.0_2241324aebc5592ee7daf237a6a81d7d
   ts-node-dev: 1.1.8_typescript@4.5.5
-  tsc-alias: 1.6.1
+  tsc-alias: 1.6.3
   typescript: 4.5.5
 
 packages:
@@ -2329,8 +2329,8 @@ packages:
       yn: 3.1.1
     dev: true
 
-  /tsc-alias/1.6.1:
-    resolution: {integrity: sha512-cvnfvm1eFmLcVOidGmSRS0iTjoPxT5DZMnZmD1ZWHSkda8EAm+00uD7Zs/OCblo0l+AEluCdAG+qP7sZf475FA==}
+  /tsc-alias/1.6.3:
+    resolution: {integrity: sha512-G3gLtvmiI/s6q9VKWGgFu0cnQW06rT/9BZPV0k+9AzDsVkpQRP9dy9UQqeblXuakta5xN5ByqFzzalAd7ZRq2Q==}
     hasBin: true
     dependencies:
       chokidar: 3.5.3
