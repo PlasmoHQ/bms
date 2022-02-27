@@ -1,6 +1,6 @@
 {
   "name": "@plasmo-corp/bms",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Browser Market Submission",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -8,8 +8,12 @@
     "dist"
   ],
   "scripts": {
-    "dev": "esbuild src/index.ts --bundle --watch --platform=node --outdir=dist",
-    "build": "esbuild src/index.ts --bundle --minify --platform=node --outdir=dist",
+    "dev": "run-p dev:*",
+    "dev:type": "tsc -w --emitDeclarationOnly",
+    "dev:code": "esbuild src/index.ts --bundle --watch --platform=node --outdir=dist",
+    "build": "run-p build:*",
+    "build:type": "tsc --emitDeclarationOnly",
+    "build:code": "esbuild src/index.ts --bundle --minify --platform=node --outdir=dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf dist",
     "prepare": "run-s clean build"
@@ -43,8 +47,8 @@
     "typescript": "4.5.5"
   },
   "dependencies": {
-    "@plasmo-corp/cwu": "1.7.4",
-    "@plasmo-corp/mwu": "1.5.3",
+    "@plasmo-corp/cwu": "1.8.0",
+    "@plasmo-corp/mwu": "1.6.0",
     "compare-versions": "4.1.3",
     "parse-duration": "1.0.2",
     "puppeteer": "13.4.0",
