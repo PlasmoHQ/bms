@@ -7,9 +7,12 @@ export const getFullPath = (file: string) => resolve(cwd(), file)
 
 export const getIsFileExists = (file: string) => existsSync(getFullPath(file))
 
-export function getCorrectZip(zip: string): string {
-  if (getIsFileExists("package.json") && zip.includes("{version}")) {
-    const packageJson = JSON.parse(readFileSync("package.json").toString())
+export function getCorrectZip({
+  zip = "",
+  versionFile = "package.json"
+}): string {
+  if (getIsFileExists(versionFile) && zip.includes("{version}")) {
+    const packageJson = JSON.parse(readFileSync(versionFile).toString())
     return zip.replace("{version}", packageJson.version || "")
   } else {
     return zip

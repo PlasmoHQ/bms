@@ -10,7 +10,7 @@ export type { EdgeOptions }
 const market = BrowserName.Edge
 
 export async function deployEdge(options: EdgeOptions): Promise<boolean> {
-  options.zip = getCorrectZip(options.zip)
+  options.zip = getCorrectZip(options)
 
   if (options.devChangelog) {
     options.devChangelog = options.devChangelog.replace(/\/\/n/g, "\n")

@@ -10,7 +10,7 @@ export type { OperaOptions }
 const market = BrowserName.Opera
 
 export async function deployOpera(options: OperaOptions): Promise<boolean> {
-  options.zip = getCorrectZip(options.zip)
+  options.zip = getCorrectZip(options)
 
   if (options.changelog) {
     options.changelog = options.changelog.replace(/\/\/n/g, "\n")

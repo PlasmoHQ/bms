@@ -63,7 +63,7 @@ async function deploy({
 }
 
 export async function deployChrome(options: ChromeOptions): Promise<boolean> {
-  options.zip = getCorrectZip(options.zip)
+  options.zip = getCorrectZip(options)
 
   validateOptions({
     market,

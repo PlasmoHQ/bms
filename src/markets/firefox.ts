@@ -54,7 +54,7 @@ async function deploy({
 }
 
 export async function deployFirefox(options: FirefoxOptions): Promise<boolean> {
-  options.zip = getCorrectZip(options.zip)
+  options.zip = getCorrectZip(options)
 
   validateOptions({
     market: BrowserName.Firefox,
