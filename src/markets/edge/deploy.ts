@@ -14,7 +14,7 @@ const market = BrowserName.Edge
 const gSelectors = {
   extName: ".extension-name",
   inputFile: "input[type=file]",
-  buttonPublishText: ".win-icon-Publish",
+  buttonPublishText: "#publish-button",
   buttonPublish: "#publishButton",
   buttonPublishOverview: "button[data-l10n-key=Common_Publish]",
   buttonEditOverview: "button[data-l10n-key=Common_Text_Edit]",
@@ -25,8 +25,7 @@ const gSelectors = {
   buttonSubmissionUpdate: "[data-l10n-key=Common_Text_Update]",
   buttonCancelOverview: "[data-l10n-key=Common_Text_Cancel]",
   buttonConfirm: "[data-l10n-key=Common_Text_Confirm]",
-  inputDevChangelog: `textarea[name="certificationNotes"]`,
-  alertDanger: "#genericErrorMessage"
+  inputDevChangelog: `textarea[name="certificationNotes"]`
 }
 
 function getBaseDashboardUrl(extId: string) {
@@ -363,115 +362,92 @@ export async function deployToEdge({
   extId,
   devChangelog = "",
   zip,
-  verbose: isVerbose
+  verbose,
+  dry = false
 }: EdgeOptions): Promise<boolean> {
-  return new Promise(async (resolve, reject) => {
-    const [width, height] = [1280, 720]
-    const puppeteerArgs =
-      process.env.NODE_ENV === "development"
-        ? {
-            headless: false,
-            defaultViewport: { width, height },
-            args: [`--window-size=${width},${height}`] //, "--window-position=0,0"]
-          }
-        : {}
-    const browser = await puppeteer.launch(puppeteerArgs)
+  const [width, height] = [1280, 720]
+  const puppeteerArgs =
+    process.env.NODE_ENV === "test"
+      ? {
+          headless: false,
+          defaultViewport: { width, height },
+          args: [`--window-size=${width},${height}`] //, "--window-position=0,0"]
+        }
+      : {}
+  const browser = await puppeteer.launch(puppeteerArgs)
 
-    const [page] = await browser.pages()
-    await disableImages(page)
-    await addLoginCookie({ page, cookie })
-    const urlStart = `${getBaseDashboardUrl(extId)}/packages/dashboard`
+  const [page] = await browser.pages()
+  await disableImages(page)
+  await addLoginCookie({ page, cookie })
+  const urlStart = `${getBaseDashboardUrl(extId)}/packages/dashboard`
 
-    if (isVerbose) {
-      console.log(
-        getVerboseMessage({
-          market,
-          message: `Launched a Puppeteer session in ${urlStart}`
-        })
-      )
-    }
+  const vLog = (message: string) =>
+    verbose &&
+    console.log(
+      getVerboseMessage({
+        market,
+        message
+      })
+    )
+
+  try {
+    vLog(`Launched a Puppeteer session in ${urlStart}`)
 
     await page.goto(urlStart)
 
-    try {
-      await openRelevantExtensionPage({ page, extId })
-    } catch (e) {
-      await browser.close()
-      reject(e)
-      return
-    }
+    await openRelevantExtensionPage({ page, extId })
 
-    if (isVerbose) {
-      console.log(
-        getVerboseMessage({
-          market,
-          message: "Opened relevant extension page"
-        })
-      )
-    }
+    vLog("Opened relevant extension page")
 
-    await cancelVersionInReviewIfNeeded({ page, isVerbose, zip })
+    await cancelVersionInReviewIfNeeded({ page, isVerbose: verbose, zip })
 
-    try {
-      if (await getIsInStore({ page })) {
-        await verifyNewVersionIsGreater({ page, zip })
-      }
-    } catch (e) {
-      await browser.close()
-      reject(e)
-      return
+    if (await getIsInStore({ page })) {
+      await verifyNewVersionIsGreater({ page, zip })
     }
 
     await uploadZip({ page, zip, extId })
 
-    if (isVerbose) {
-      console.log(
-        getVerboseMessage({
-          market,
-          message: `Uploading ZIP: ${zip}`
-        })
-      )
-    }
+    vLog(`Uploading ZIP: ${zip}`)
 
     await clickButtonNext({ page })
 
-    if (isVerbose) {
-      console.log(
-        getVerboseMessage({
-          market,
-          message: "Uploaded ZIP"
-        })
-      )
-    }
+    vLog("Uploaded ZIP")
 
-    try {
-      await verifyNoListingIssues({ page, extId })
-    } catch (e) {
-      await browser.close()
-      reject(e)
-      return
-    }
+    await verifyNoListingIssues({ page, extId })
 
     await clickButtonPublishText(page, extId)
-    await addChangelogIfNeeded({ page, devChangelog, isVerbose })
-    await clickButtonPublish({ page })
+    await addChangelogIfNeeded({ page, devChangelog, isVerbose: verbose })
 
-    const minutesToWait = 10
-    const timeout = duration(`${minutesToWait}m`)
-    try {
-      await page.waitForSelector(gSelectors.buttonSubmissionUpdate, {
-        timeout
-      })
-    } catch {
-      await clickPublishInOverview({ page, extId })
-      await page.waitForSelector(gSelectors.statusInReview, {
-        timeout
-      })
+    if (!dry) {
+      await clickButtonPublish({ page })
+
+      const minutesToWait = 10
+      const timeout = duration(`${minutesToWait}m`)
+      try {
+        await page.waitForSelector(gSelectors.buttonSubmissionUpdate, {
+          timeout
+        })
+      } catch {
+        await clickPublishInOverview({ page, extId })
+        await page.waitForSelector(gSelectors.statusInReview, {
+          timeout
+        })
+      }
+      logSuccessfullyPublished({ extId, market, zip })
+      await browser.close()
+    } else {
+      await new Promise((r) => browser.once("close", () => r(true)))
     }
-    logSuccessfullyPublished({ extId, market, zip })
 
+    return true
+  } catch (error) {
     await browser.close()
-
-    resolve(true)
-  })
+    throw new Error(
+      getVerboseMessage({
+        market,
+        message: `Item "${extId}": ${error.message}`,
+        prefix: "Error"
+      })
+    )
+  }
 }

@@ -22,3 +22,5 @@ export const errorMap = {
   cookie:
     "No cookie is provided. The cookie's name is '.AspNet.Cookies'. If you have a hard time obtaining it, run: npx web-ext-deploy --get-cookies=edge"
 }
+
+export const requiredFields = Object.keys(errorMap)

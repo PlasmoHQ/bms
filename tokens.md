@@ -52,12 +52,13 @@ Returns `Promise<true>` or throws an exception.
 `deployFirefox` object  
  Options:
 
-- `extId` string  
-  Get it from `https://addons.mozilla.org/addon/EXT_ID`
 - `apiKey` string  
   Obtain it from: https://addons.mozilla.org/en-US/developers/addon/api/key/
 - `apiSecret` string
   Obtain it from: https://addons.mozilla.org/en-US/developers/addon/api/key/
+
+- `extId` string  
+  This is the extension UUID, get it from https://addons.mozilla.org/addon/{ext-name}/edit, under Technical Details. If it is embedded in your manifest under gecko.id, _omit this property_.
 
 - `zip` string
   The relative path from the root to the ZIP.  
@@ -74,7 +75,7 @@ Returns `Promise<true>` or throws an exception.
  Options:
 
 - `extId` string  
-  Get it from `https://partner.microsoft.com/en-us/dashboard/microsoftedge/EXT_ID`
+  This is the `Product Id` from `https://partner.microsoft.com/en-us/dashboard/microsoftedge/EXT_ID`
 - `cookie` string  
   The value of the cookie `.AspNet.Cookies`, which will be used to log in to the publisher's account.  
   If you have a hard time obtaining it, you can run:
