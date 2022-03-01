@@ -370,7 +370,7 @@ export async function deployToEdge({
   devChangelog = "",
   zip,
   verbose,
-  dry = false
+  dryRun = false
 }: EdgeOptions): Promise<boolean> {
   const [width, height] = [1280, 720]
   const puppeteerArgs =
