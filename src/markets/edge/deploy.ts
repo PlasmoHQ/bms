@@ -425,7 +425,7 @@ export async function deployToEdge({
     await clickButtonPublishText(page, extId)
     await addChangelogIfNeeded({ page, devChangelog, isVerbose: verbose })
 
-    if (!dry) {
+    if (!dryRun) {
       await clickButtonPublish({ page })
 
       const minutesToWait = 10
