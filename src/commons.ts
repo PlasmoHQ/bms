@@ -31,7 +31,7 @@ export type CommonOptions = {
    */
   versionFile?: string
 
-  /** If `true`, every step of uploading to the Firefox Add-ons will be logged to the console. */
+  /** If `true`, every step of uploading will be logged to the console. */
   verbose?: boolean
 
   /** If `true`, it will only upload the zip but does not actually hit submission */
