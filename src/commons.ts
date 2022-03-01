@@ -35,5 +35,5 @@ export type CommonOptions = {
   verbose?: boolean
 
   /** If `true`, it will only upload the zip but does not actually hit submission */
-  dry?: boolean
+  dryRun?: boolean
 }
