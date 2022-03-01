@@ -1,5 +1,10 @@
-export default {
+/**
+ * @type {import('@jest/types').Config.InitialOptions}
+ */
+
+const config = {
   clearMocks: true,
+  testTimeout: 60000 * 5, // Test can run for 5 minutes
   moduleFileExtensions: ["js", "ts"],
   testMatch: ["**/*.test.ts"],
   transform: {
@@ -10,3 +15,4 @@ export default {
     "^~(.*)$": "<rootDir>/dist/$1"
   }
 }
+export default config

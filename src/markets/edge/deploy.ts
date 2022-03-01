@@ -16,21 +16,28 @@ const gSelectors = {
   inputFile: "input[type=file]",
   buttonPublishText: "#publish-button",
   buttonPublish: "#publishButton",
-  buttonPublishOverview: "button[data-l10n-key=Common_Publish]",
-  buttonEditOverview: "button[data-l10n-key=Common_Text_Edit]",
-  buttonUpdateOverview: "button[data-l10n-key=Common_Text_Update]",
+  buttonPublishOverview: "[data-l10n-key=Common_Publish]",
+  buttonEditOverview: "[data-l10n-key=Common_Text_Edit]",
+  buttonUpdateOverview: "[data-l10n-key=Common_Text_Update]",
   statusInReview: "[data-l10n-key=Overview_Extension_Status_InReview]",
   errorIncompleteTranslations: `[data-l10n-key="Common_Incomplete"]`,
-  buttonPackageNext: "[data-l10n-key=Package_Next]",
+  buttonPackageNext: "#nextbtn",
   buttonSubmissionUpdate: "[data-l10n-key=Common_Text_Update]",
   buttonCancelOverview: "[data-l10n-key=Common_Text_Cancel]",
   buttonConfirm: "[data-l10n-key=Common_Text_Confirm]",
   inputDevChangelog: `textarea[name="certificationNotes"]`
 }
 
-function getBaseDashboardUrl(extId: string) {
-  return `https://partner.microsoft.com/en-us/dashboard/microsoftedge/${extId}`
-}
+const getBaseUrl = (extId: string) =>
+  `https://partner.microsoft.com/en-us/dashboard/microsoftedge/${extId}`
+
+// getBaseUrl(extId)}/availability
+
+const getPackageUrl = (extId: string) => `${getBaseUrl(extId)}/package`
+const getListingsUrl = (extId: string) => `${getBaseUrl(extId)}/listings`
+const getAvailabilityUrl = (extId: string) =>
+  `${getBaseUrl(extId)}/availability`
+const getDashboardUrl = (extId: string) => `${getPackageUrl(extId)}/dashboard`
 
 async function openRelevantExtensionPage({ page = null as Page, extId = "" }) {
   return new Promise(async (resolve, reject) => {
@@ -68,7 +75,7 @@ async function openRelevantExtensionPage({ page = null as Page, extId = "" }) {
     page.on("response", responseListener)
 
     page
-      .goto(`${getBaseDashboardUrl(extId)}/packages/dashboard`)
+      .goto(getDashboardUrl(extId))
       .then(() => resolve(true))
       .catch(() => {})
   })
@@ -95,7 +102,7 @@ async function uploadZip({
   zip: string
   extId: string
 }) {
-  await page.goto(`${getBaseDashboardUrl(extId)}/packages`, {
+  await page.goto(getPackageUrl(extId), {
     waitUntil: "networkidle0"
   })
   const elInputFile = await page.$(gSelectors.inputFile)
@@ -184,7 +191,7 @@ async function verifyNoListingIssues({
       dialog.accept()
     })
 
-    await page.goto(`${getBaseDashboardUrl(extId)}/listings`, {
+    await page.goto(getListingsUrl(extId), {
       waitUntil: "networkidle0"
     })
 
@@ -243,7 +250,7 @@ async function clickButtonPublish({ page }: { page: Page }) {
 }
 
 async function clickButtonPublishText(page: Page, extId: string) {
-  await page.goto(`${getBaseDashboardUrl(extId)}/availability`, {
+  await page.goto(getAvailabilityUrl(extId), {
     waitUntil: "networkidle0"
   })
   await page.waitForSelector(gSelectors.buttonPublishText)
@@ -257,7 +264,7 @@ async function clickPublishInOverview({
   page: Page
   extId: string
 }) {
-  const urlOverview = `${getBaseDashboardUrl(extId)}/packages/dashboard`
+  const urlOverview = getDashboardUrl(extId)
   await page.goto(urlOverview, { waitUntil: "networkidle0" })
   await page.waitForSelector(gSelectors.buttonPublishOverview)
   await page.click(gSelectors.buttonPublishOverview)
@@ -371,7 +378,7 @@ export async function deployToEdge({
       ? {
           headless: false,
           defaultViewport: { width, height },
-          args: [`--window-size=${width},${height}`] //, "--window-position=0,0"]
+          args: [`--window-size=${width},${height} --window-position=0,0`]
         }
       : {}
   const browser = await puppeteer.launch(puppeteerArgs)
@@ -379,7 +386,7 @@ export async function deployToEdge({
   const [page] = await browser.pages()
   await disableImages(page)
   await addLoginCookie({ page, cookie })
-  const urlStart = `${getBaseDashboardUrl(extId)}/packages/dashboard`
+  const urlStart = getDashboardUrl(extId)
 
   const vLog = (message: string) =>
     verbose &&
@@ -434,20 +441,21 @@ export async function deployToEdge({
         })
       }
       logSuccessfullyPublished({ extId, market, zip })
-      await browser.close()
-    } else {
-      await new Promise((r) => browser.once("close", () => r(true)))
     }
+
+    await browser.close()
 
     return true
   } catch (error) {
     await browser.close()
-    throw new Error(
+    const stackedError = new Error(
       getVerboseMessage({
         market,
         message: `Item "${extId}": ${error.message}`,
         prefix: "Error"
       })
     )
+    stackedError.stack = error.stack
+    throw stackedError
   }
 }
