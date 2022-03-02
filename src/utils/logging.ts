@@ -1,4 +1,5 @@
 import { BrowserName, marketNameMap } from "~commons"
+
 import { getManifestJson } from "./file"
 
 export function logSuccessfullyPublished({
@@ -32,4 +33,21 @@ export function getVerboseMessage({
     msg = msg.trimStart()
   }
   return msg
+}
+
+const verboseLogMap = {} as Record<BrowserName, boolean>
+
+export const enableVerboseLogging = (market: BrowserName) => {
+  verboseLogMap[market] = true
+}
+
+export function getVerboseLogger(market = "" as BrowserName) {
+  return (message: string) =>
+    verboseLogMap[market] &&
+    console.log(
+      getVerboseMessage({
+        market,
+        message
+      })
+    )
 }

@@ -1,13 +1,20 @@
 import puppeteer, { Page } from "puppeteer"
 
 import { BrowserName } from "~commons.js"
+import { getVerboseError } from "~utils/error"
 import { getFullPath, getManifestJson } from "~utils/file"
-import { getVerboseMessage, logSuccessfullyPublished } from "~utils/logging"
+import {
+  getVerboseLogger,
+  getVerboseMessage,
+  logSuccessfullyPublished
+} from "~utils/logging"
 import { disableImages } from "~utils/puppeteer"
 
 import type { OperaOptions } from "."
 
 const market = BrowserName.Opera
+
+const vLog = getVerboseLogger(market)
 
 const gSelectors = {
   listErrors: ".alert-danger",
@@ -323,14 +330,7 @@ async function deleteCurrentVersionIfAlreadyExists({
     await page.waitForSelector(gSelectors.buttonCancel)
     await page.click(gSelectors.buttonCancel)
 
-    if (isVerbose) {
-      console.log(
-        getVerboseMessage({
-          market,
-          message: `Deleted existing package version ${version}`
-        })
-      )
-    }
+    vLog(`Deleted existing package version ${version}`)
   }
 
   const version = getManifestJson(zip)["version"]
@@ -366,25 +366,16 @@ export async function deployToOpera({
 }: OperaOptions): Promise<boolean> {
   const [width, height] = [1280, 720]
   const puppeteerArgs =
-    process.env.NODE_ENV === "development"
+    process.env.NODE_ENV === "test"
       ? {
           headless: false,
           defaultViewport: { width, height },
-          args: [`--window-size=${width},${height}`] //, "--window-position=0,0"],
+          args: [`--window-size=${width},${height}, --window-position=0,0`]
         }
       : {}
   const browser = await puppeteer.launch(puppeteerArgs)
 
   const [page] = await browser.pages()
-
-  const vLog = (message: string) =>
-    verbose &&
-    console.log(
-      getVerboseMessage({
-        market,
-        message
-      })
-    )
 
   await disableImages(page)
   await addLoginCookie({ page, sessionid, csrftoken })
@@ -434,14 +425,6 @@ export async function deployToOpera({
     return true
   } catch (error) {
     await browser.close()
-    const stackedError = new Error(
-      getVerboseMessage({
-        market,
-        message: `Item "${packageId}": ${error.message}`,
-        prefix: "Error"
-      })
-    )
-    stackedError.stack = error.stack
-    throw stackedError
+    throw getVerboseError(error, market, packageId)
   }
 }

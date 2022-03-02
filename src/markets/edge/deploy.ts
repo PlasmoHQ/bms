@@ -3,13 +3,20 @@ import { default as duration } from "parse-duration"
 import puppeteer, { Page } from "puppeteer"
 
 import { BrowserName } from "~commons.js"
+import { getVerboseError } from "~utils/error.js"
 import { getManifestJson } from "~utils/file.js"
-import { getVerboseMessage, logSuccessfullyPublished } from "~utils/logging.js"
+import {
+  getVerboseLogger,
+  getVerboseMessage,
+  logSuccessfullyPublished
+} from "~utils/logging.js"
 import { disableImages, getExistingElementSelector } from "~utils/puppeteer.js"
 
 import type { EdgeOptions } from "./options.js"
 
 const market = BrowserName.Edge
+
+const vLog = getVerboseLogger(market)
 
 const gSelectors = {
   extName: ".extension-name",
@@ -186,29 +193,25 @@ async function verifyNoListingIssues({
   page: Page
   extId: string
 }) {
-  return new Promise(async (resolve, reject) => {
-    page.once("dialog", (dialog) => {
-      dialog.accept()
-    })
+  page.once("dialog", (dialog) => {
+    dialog.accept()
+  })
 
-    await page.goto(getListingsUrl(extId), {
-      waitUntil: "networkidle0"
-    })
+  await page.goto(getListingsUrl(extId), {
+    waitUntil: "networkidle0"
+  })
 
-    const languagesMissing = await getLanguages({ page })
-    if (languagesMissing.length === 0) {
-      resolve(true)
-      return
-    }
-
-    reject(
+  const languagesMissing = await getLanguages({ page })
+  if (languagesMissing.length !== 0) {
+    throw new Error(
       getVerboseMessage({
         market,
         message: `The following languages lack their translated descriptions and/or logos: ${languagesMissing}`,
         prefix: "Error"
       })
     )
-  })
+  }
+  return true
 }
 
 async function addChangelogIfNeeded({
@@ -225,14 +228,7 @@ async function addChangelogIfNeeded({
   }
   await page.waitForSelector(gSelectors.inputDevChangelog)
   await page.type(gSelectors.inputDevChangelog, devChangelog)
-  if (isVerbose) {
-    console.log(
-      getVerboseMessage({
-        market,
-        message: `Added changelog for reviewers: ${devChangelog}`
-      })
-    )
-  }
+  vLog(`Added changelog for reviewers: ${devChangelog}`)
 }
 
 async function clickButtonPublish({ page }: { page: Page }) {
@@ -339,15 +335,10 @@ async function cancelVersionInReviewIfNeeded({
   }
   await confirmCancelWhenPossible({ page })
 
-  if (isVerbose) {
-    const extName = getManifestJson(zip)["name"]
-    console.log(
-      getVerboseMessage({
-        market,
-        message: `Canceling current being-reviewed version. It will take about a minute until the new version of ${extName} can be uploaded`
-      })
-    )
-  }
+  const extName = getManifestJson(zip)["name"]
+  vLog(
+    `Canceling current being-reviewed version. It will take about a minute until the new version of ${extName} can be uploaded`
+  )
 
   await new Promise((resolve) =>
     setTimeout(() => resolve(true), duration("65s"))
@@ -387,15 +378,6 @@ export async function deployToEdge({
   await disableImages(page)
   await addLoginCookie({ page, cookie })
   const urlStart = getDashboardUrl(extId)
-
-  const vLog = (message: string) =>
-    verbose &&
-    console.log(
-      getVerboseMessage({
-        market,
-        message
-      })
-    )
 
   try {
     vLog(`Launched a Puppeteer session in ${urlStart}`)
@@ -448,14 +430,6 @@ export async function deployToEdge({
     return true
   } catch (error) {
     await browser.close()
-    const stackedError = new Error(
-      getVerboseMessage({
-        market,
-        message: `Item "${extId}": ${error.message}`,
-        prefix: "Error"
-      })
-    )
-    stackedError.stack = error.stack
-    throw stackedError
+    throw getVerboseError(error, market, extId)
   }
 }
