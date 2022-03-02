@@ -370,7 +370,7 @@ export async function deployToEdge({
   devChangelog = "",
   zip,
   verbose,
-  dry = false
+  dryRun = false
 }: EdgeOptions): Promise<boolean> {
   const [width, height] = [1280, 720]
   const puppeteerArgs =
@@ -425,7 +425,7 @@ export async function deployToEdge({
     await clickButtonPublishText(page, extId)
     await addChangelogIfNeeded({ page, devChangelog, isVerbose: verbose })
 
-    if (!dry) {
+    if (!dryRun) {
       await clickButtonPublish({ page })
 
       const minutesToWait = 10
