@@ -65,14 +65,11 @@ async function getErrorsOrNone({
       resolve(500)
     }
     const prefixError = errors.length === 1 ? "Error" : "Errors"
+
     reject(
-      getVerboseMessage({
-        market,
-        message: `${prefixError} at the upload of extension's ZIP with package ID ${packageId}:
+      new Error(`${prefixError} at the upload of extension's ZIP with package ID ${packageId}:
       ${errors.join("\n")}
-      `,
-        prefix: "Error"
-      })
+      `)
     )
   })
 }
@@ -137,12 +134,9 @@ async function openRelevantExtensionPage({
           .startsWith("https://auth.opera.com")
         if (isCookieInvalid) {
           reject(
-            getVerboseMessage({
-              market,
-              message:
-                "Invalid/expired authentication cookie. Please get a new one, e.g. by running: web-ext-deploy --get-cookies=opera",
-              prefix: "Error"
-            })
+            new Error(
+              "Invalid/expired authentication cookie. Please get a new one, e.g. by running: web-ext-deploy --get-cookies=opera"
+            )
           )
         }
         return
@@ -150,10 +144,7 @@ async function openRelevantExtensionPage({
 
       if (response.statusText() === "Not Found") {
         reject(
-          getVerboseMessage({
-            market,
-            message: `Extension with package ID ${packageId} does not exist`
-          })
+          new Error(`Extension with package ID ${packageId} does not exist`)
         )
         return
       }
@@ -215,13 +206,9 @@ async function updateExtension({
 
     const prefixError = errors.length === 1 ? "Error" : "Errors"
     reject(
-      getVerboseMessage({
-        market,
-        message: `${prefixError} at the upload of extension's ZIP with package ID ${packageId}:
+      new Error(`${prefixError} at the upload of extension's ZIP with package ID ${packageId}:
       ${errors.join("\n")}
-      `,
-        prefix: "Error"
-      })
+      `)
     )
   })
 }
@@ -229,12 +216,10 @@ async function updateExtension({
 async function addChangelogIfNeeded({
   page,
   changelog,
-  isVerbose,
   zip
 }: {
   page: Page
   changelog?: string
-  isVerbose: boolean
   zip: string
 }) {
   const switchToTabTranslations = async () => {
@@ -266,14 +251,7 @@ async function addChangelogIfNeeded({
     await page.type(gSelectors.inputChangelog, changelog)
     await page.click(gSelectors.buttonSubmitChangelog)
 
-    if (isVerbose) {
-      console.log(
-        getVerboseMessage({
-          market,
-          message: `Added changelog: ${changelog}`
-        })
-      )
-    }
+    vLog(`Added changelog: ${changelog}`)
   }
 
   const url = page.url().split("?")[0]
@@ -318,13 +296,11 @@ async function cancelUpload({ page }: { page: Page }) {
 async function deleteCurrentVersionIfAlreadyExists({
   page,
   packageId,
-  zip,
-  isVerbose
+  zip
 }: {
   page: Page
   packageId: string
   zip: string
-  isVerbose: boolean
 }) {
   const deletePackage = async () => {
     await page.waitForSelector(gSelectors.buttonCancel)
@@ -391,8 +367,7 @@ export async function deployToOpera({
     const isDeleted = await deleteCurrentVersionIfAlreadyExists({
       page,
       packageId,
-      zip,
-      isVerbose: verbose
+      zip
     })
     if (isDeleted) {
       await page.reload()
@@ -409,7 +384,7 @@ export async function deployToOpera({
     vLog(`Uploaded ZIP: ${zip}`)
 
     await verifyPublicCodeExistence({ page })
-    await addChangelogIfNeeded({ page, changelog, isVerbose: verbose, zip })
+    await addChangelogIfNeeded({ page, changelog, zip })
 
     try {
       await updateExtension({ page, packageId })

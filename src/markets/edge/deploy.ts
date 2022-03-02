@@ -5,11 +5,7 @@ import puppeteer, { Page } from "puppeteer"
 import { BrowserName } from "~commons.js"
 import { getVerboseError } from "~utils/error.js"
 import { getManifestJson } from "~utils/file.js"
-import {
-  getVerboseLogger,
-  getVerboseMessage,
-  logSuccessfullyPublished
-} from "~utils/logging.js"
+import { getVerboseLogger, logSuccessfullyPublished } from "~utils/logging.js"
 import { disableImages, getExistingElementSelector } from "~utils/puppeteer.js"
 
 import type { EdgeOptions } from "./options.js"
@@ -55,12 +51,9 @@ async function openRelevantExtensionPage({ page = null as Page, extId = "" }) {
           .startsWith("https://login.microsoftonline.com")
         if (isCookieInvalid) {
           reject(
-            getVerboseMessage({
-              market,
-              message:
-                "Invalid/expired cookie. Please get a new one, e.g. by running: npx web-ext-deploy --get-cookies=edge",
-              prefix: "Error"
-            })
+            new Error(
+              "Invalid/expired cookie. Please get a new one, e.g. by running: npx web-ext-deploy --get-cookies=edge"
+            )
           )
         }
         return
@@ -71,13 +64,7 @@ async function openRelevantExtensionPage({ page = null as Page, extId = "" }) {
         page.off("response", responseListener)
         return
       }
-      reject(
-        getVerboseMessage({
-          market,
-          message: `Extension with ID "${extId}" does not exist`,
-          prefix: "Error"
-        })
-      )
+      reject(new Error(`Extension with ID "${extId}" does not exist`))
     }
     page.on("response", responseListener)
 
@@ -128,11 +115,9 @@ async function verifyNewVersionIsGreater({ page = null as Page, zip = "" }) {
     }
     const extName = getManifestJson(zip)["name"]
     reject(
-      getVerboseMessage({
-        market,
-        message: `${extName}'s new version (${versionNew}) must be greater than the current version (${versionCurrent})`,
-        prefix: "Error"
-      })
+      new Error(
+        `${extName}'s new version (${versionNew}) must be greater than the current version (${versionCurrent})`
+      )
     )
   })
 }
@@ -204,11 +189,7 @@ async function verifyNoListingIssues({
   const languagesMissing = await getLanguages({ page })
   if (languagesMissing.length !== 0) {
     throw new Error(
-      getVerboseMessage({
-        market,
-        message: `The following languages lack their translated descriptions and/or logos: ${languagesMissing}`,
-        prefix: "Error"
-      })
+      `The following languages lack their translated descriptions and/or logos: ${languagesMissing}`
     )
   }
   return true
@@ -216,12 +197,10 @@ async function verifyNoListingIssues({
 
 async function addChangelogIfNeeded({
   page,
-  devChangelog,
-  isVerbose
+  devChangelog
 }: {
   devChangelog: string
   page: Page
-  isVerbose: boolean
 }) {
   if (!devChangelog) {
     return
@@ -306,11 +285,9 @@ async function confirmCancelWhenPossible({ page }: { page: Page }) {
 
 async function cancelVersionInReviewIfNeeded({
   page,
-  isVerbose,
   zip
 }: {
   page: Page
-  isVerbose: boolean
   zip: string
 }) {
   // Scenario 1: It's live in the store (Update & Unpublish are available)
@@ -388,7 +365,7 @@ export async function deployToEdge({
 
     vLog("Opened relevant extension page")
 
-    await cancelVersionInReviewIfNeeded({ page, isVerbose: verbose, zip })
+    await cancelVersionInReviewIfNeeded({ page, zip })
 
     if (await getIsInStore({ page })) {
       await verifyNewVersionIsGreater({ page, zip })
@@ -405,7 +382,7 @@ export async function deployToEdge({
     await verifyNoListingIssues({ page, extId })
 
     await clickButtonPublishText(page, extId)
-    await addChangelogIfNeeded({ page, devChangelog, isVerbose: verbose })
+    await addChangelogIfNeeded({ page, devChangelog })
 
     if (!dryRun) {
       await clickButtonPublish({ page })

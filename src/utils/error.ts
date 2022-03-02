@@ -15,5 +15,5 @@ export const getVerboseError = (
     })
   )
   stackedError.stack = error.stack
-  throw stackedError
+  return stackedError
 }
