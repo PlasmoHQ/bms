@@ -29,7 +29,7 @@ async function getErrorsOrNone({
   packageId
 }: {
   page: Page
-  packageId: number
+  packageId: string
 }): Promise<boolean | number> {
   return new Promise(async (resolve, reject) => {
     await Promise.race([
@@ -77,7 +77,7 @@ async function uploadZip({
 }: {
   page: Page
   zip: string
-  packageId: number
+  packageId: string
 }): Promise<boolean | number> {
   return new Promise(async (resolve, reject) => {
     const clickUploadWhenPossible = async () => {
@@ -116,7 +116,7 @@ async function openRelevantExtensionPage({
   packageId
 }: {
   page: Page
-  packageId: number
+  packageId: string
 }) {
   const urlExtension = getBaseDashboardUrl(packageId)
   return new Promise(async (resolve, reject) => {
@@ -191,7 +191,7 @@ async function updateExtension({
   packageId
 }: {
   page: Page
-  packageId: number
+  packageId: string
 }) {
   await page.click(gSelectors.buttonSubmit)
 
@@ -299,7 +299,7 @@ async function addLoginCookie({
   await page.setCookie(...cookies)
 }
 
-function getBaseDashboardUrl(packageId: number) {
+function getBaseDashboardUrl(packageId: string) {
   return `https://addons.opera.com/developer/package/${packageId}`
 }
 
@@ -315,7 +315,7 @@ async function deleteCurrentVersionIfAlreadyExists({
   isVerbose
 }: {
   page: Page
-  packageId: number
+  packageId: string
   zip: string
   isVerbose: boolean
 }) {

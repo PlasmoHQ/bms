@@ -8,7 +8,7 @@ export type OperaOptions = {
   csrftoken: string
 
   /** The extension ID. E.g. `https://addons.opera.com/developer/package/PACKAGE_ID` */
-  packageId: number
+  packageId: string
 
   /**
    * A description of the changes in this version, compared to the previous one.<br>
