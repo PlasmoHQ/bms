@@ -1,13 +1,20 @@
 import { MozillaWebstoreClient, Options, errorMap } from "@plasmo-corp/mwu"
 
 import { BrowserName, CommonOptions } from "~commons"
+import { getVerboseError } from "~utils/error"
 import { getCorrectZip, getManifestJson } from "~utils/file"
-import { getVerboseMessage, logSuccessfullyPublished } from "~utils/logging"
+import {
+  enableVerboseLogging,
+  getVerboseLogger,
+  logSuccessfullyPublished
+} from "~utils/logging"
 import { validateOptions } from "~utils/validator"
 
 export type FirefoxOptions = Options & CommonOptions
 
 const market = BrowserName.Firefox
+
+const vLog = getVerboseLogger(market)
 
 async function deploy({
   extId,
@@ -16,48 +23,39 @@ async function deploy({
   verbose,
   zip
 }: FirefoxOptions) {
+  const manifest = getManifestJson(zip)
+
+  const id = manifest["browser_specific_settings"]?.["gecko"]?.["id"] || extId
   const client = new MozillaWebstoreClient({
-    extId,
+    extId: id,
     apiKey,
     apiSecret
   })
 
-  if (verbose) {
-    console.log(
-      getVerboseMessage({
-        market,
-        message: `Updating extension with ID ${extId}`
-      })
-    )
-  }
-
-  const manifest = getManifestJson(zip)
+  vLog(`Updating extension with ID ${id}`)
 
   try {
     await client.submit({
       filePath: zip,
       version: manifest.version
     })
+    logSuccessfullyPublished({ extId: id, market, zip })
+
+    return true
   } catch (error) {
-    throw new Error(
-      getVerboseMessage({
-        market,
-        message: `Item "${extId}" (${manifest.name}): ${error.message}`,
-        prefix: "Error"
-      })
-    )
+    throw getVerboseError(error, market, `"${id}" (${manifest.name})`)
   }
-
-  logSuccessfullyPublished({ extId, market, zip })
-
-  return true
 }
 
 export async function deployFirefox(options: FirefoxOptions): Promise<boolean> {
   options.zip = getCorrectZip(options)
 
+  if (options.verbose) {
+    enableVerboseLogging(market)
+  }
+
   validateOptions({
-    market: BrowserName.Firefox,
+    market,
     options,
     errorMap
   })

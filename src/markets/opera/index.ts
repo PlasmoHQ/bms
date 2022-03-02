@@ -1,5 +1,6 @@
 import { BrowserName } from "~commons.js"
 import { getCorrectZip } from "~utils/file.js"
+import { enableVerboseLogging } from "~utils/logging"
 import { validateOptions } from "~utils/validator.js"
 
 import { deployToOpera } from "./deploy"
@@ -14,6 +15,10 @@ export async function deployOpera(options: OperaOptions): Promise<boolean> {
 
   if (options.changelog) {
     options.changelog = options.changelog.replace(/\/\/n/g, "\n")
+  }
+
+  if (options.verbose) {
+    enableVerboseLogging(market)
   }
 
   validateOptions({ market, options, errorMap })

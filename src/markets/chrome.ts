@@ -7,8 +7,13 @@ import {
 
 import type { CommonOptions } from "~commons"
 import { BrowserName } from "~commons"
+import { getVerboseError } from "~utils/error"
 import { getCorrectZip, getManifestJson } from "~utils/file"
-import { getVerboseMessage, logSuccessfullyPublished } from "~utils/logging"
+import {
+  enableVerboseLogging,
+  getVerboseLogger,
+  logSuccessfullyPublished
+} from "~utils/logging"
 import { validateOptions } from "~utils/validator"
 
 export type ChromeOptions = {
@@ -17,6 +22,8 @@ export type ChromeOptions = {
   CommonOptions
 
 const market = BrowserName.Chrome
+
+const vLog = getVerboseLogger(market)
 
 async function deploy({
   extId,
@@ -32,38 +39,28 @@ async function deploy({
     refreshToken
   })
 
-  if (verbose) {
-    console.log(
-      getVerboseMessage({
-        market,
-        message: `Updating extension with ID ${extId}`
-      })
-    )
-  }
+  vLog(`Updating extension with ID ${extId}`)
 
   try {
     await client.submit({
       filePath: zip,
       target
     })
+    logSuccessfullyPublished({ extId, market, zip })
+
+    return true
   } catch (error) {
     const manifest = getManifestJson(zip)
-    throw new Error(
-      getVerboseMessage({
-        market,
-        message: `Item "${extId}" (${manifest.name}): ${error.message}`,
-        prefix: "Error"
-      })
-    )
+    throw getVerboseError(error, market, `"${extId}" (${manifest.name})`)
   }
-
-  logSuccessfullyPublished({ extId, market, zip })
-
-  return true
 }
 
 export async function deployChrome(options: ChromeOptions): Promise<boolean> {
   options.zip = getCorrectZip(options)
+
+  if (options.verbose) {
+    enableVerboseLogging(market)
+  }
 
   validateOptions({
     market,

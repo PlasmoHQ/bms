@@ -1,13 +1,20 @@
 import puppeteer, { Page } from "puppeteer"
 
 import { BrowserName } from "~commons.js"
+import { getVerboseError } from "~utils/error"
 import { getFullPath, getManifestJson } from "~utils/file"
-import { getVerboseMessage, logSuccessfullyPublished } from "~utils/logging"
+import {
+  getVerboseLogger,
+  getVerboseMessage,
+  logSuccessfullyPublished
+} from "~utils/logging"
 import { disableImages } from "~utils/puppeteer"
 
 import type { OperaOptions } from "."
 
 const market = BrowserName.Opera
+
+const vLog = getVerboseLogger(market)
 
 const gSelectors = {
   listErrors: ".alert-danger",
@@ -29,7 +36,7 @@ async function getErrorsOrNone({
   packageId
 }: {
   page: Page
-  packageId: number
+  packageId: string
 }): Promise<boolean | number> {
   return new Promise(async (resolve, reject) => {
     await Promise.race([
@@ -77,7 +84,7 @@ async function uploadZip({
 }: {
   page: Page
   zip: string
-  packageId: number
+  packageId: string
 }): Promise<boolean | number> {
   return new Promise(async (resolve, reject) => {
     const clickUploadWhenPossible = async () => {
@@ -116,7 +123,7 @@ async function openRelevantExtensionPage({
   packageId
 }: {
   page: Page
-  packageId: number
+  packageId: string
 }) {
   const urlExtension = getBaseDashboardUrl(packageId)
   return new Promise(async (resolve, reject) => {
@@ -191,7 +198,7 @@ async function updateExtension({
   packageId
 }: {
   page: Page
-  packageId: number
+  packageId: string
 }) {
   await page.click(gSelectors.buttonSubmit)
 
@@ -299,7 +306,7 @@ async function addLoginCookie({
   await page.setCookie(...cookies)
 }
 
-function getBaseDashboardUrl(packageId: number) {
+function getBaseDashboardUrl(packageId: string) {
   return `https://addons.opera.com/developer/package/${packageId}`
 }
 
@@ -315,7 +322,7 @@ async function deleteCurrentVersionIfAlreadyExists({
   isVerbose
 }: {
   page: Page
-  packageId: number
+  packageId: string
   zip: string
   isVerbose: boolean
 }) {
@@ -323,14 +330,7 @@ async function deleteCurrentVersionIfAlreadyExists({
     await page.waitForSelector(gSelectors.buttonCancel)
     await page.click(gSelectors.buttonCancel)
 
-    if (isVerbose) {
-      console.log(
-        getVerboseMessage({
-          market,
-          message: `Deleted existing package version ${version}`
-        })
-      )
-    }
+    vLog(`Deleted existing package version ${version}`)
   }
 
   const version = getManifestJson(zip)["version"]
@@ -362,56 +362,37 @@ export async function deployToOpera({
   packageId,
   zip,
   changelog = "",
-  verbose: isVerbose
+  verbose
 }: OperaOptions): Promise<boolean> {
-  return new Promise(async (resolve, reject) => {
-    const [width, height] = [1280, 720]
-    const puppeteerArgs =
-      process.env.NODE_ENV === "development"
-        ? {
-            headless: false,
-            defaultViewport: { width, height },
-            args: [`--window-size=${width},${height}`] //, "--window-position=0,0"],
-          }
-        : {}
-    const browser = await puppeteer.launch(puppeteerArgs)
+  const [width, height] = [1280, 720]
+  const puppeteerArgs =
+    process.env.NODE_ENV === "test"
+      ? {
+          headless: false,
+          defaultViewport: { width, height },
+          args: [`--window-size=${width},${height}, --window-position=0,0`]
+        }
+      : {}
+  const browser = await puppeteer.launch(puppeteerArgs)
 
-    const [page] = await browser.pages()
-    await disableImages(page)
-    await addLoginCookie({ page, sessionid, csrftoken })
-    const urlStart = `${getBaseDashboardUrl(packageId)}?tab=versions`
+  const [page] = await browser.pages()
 
-    if (isVerbose) {
-      console.log(
-        getVerboseMessage({
-          market,
-          message: `Launched a Puppeteer session in ${urlStart}`
-        })
-      )
-    }
+  await disableImages(page)
+  await addLoginCookie({ page, sessionid, csrftoken })
+  const urlStart = `${getBaseDashboardUrl(packageId)}?tab=versions`
 
-    try {
-      await openRelevantExtensionPage({ page, packageId })
-    } catch (e) {
-      await browser.close()
-      reject(e)
-      return
-    }
+  try {
+    vLog(`Launched a Puppeteer session in ${urlStart}`)
 
-    if (isVerbose) {
-      console.log(
-        getVerboseMessage({
-          market,
-          message: "Opened relevant extension page"
-        })
-      )
-    }
+    await openRelevantExtensionPage({ page, packageId })
+
+    vLog(`Opened relevant extension page`)
 
     const isDeleted = await deleteCurrentVersionIfAlreadyExists({
       page,
       packageId,
       zip,
-      isVerbose
+      isVerbose: verbose
     })
     if (isDeleted) {
       await page.reload()
@@ -420,42 +401,30 @@ export async function deployToOpera({
 
     await switchToTabVersions({ page })
 
-    try {
-      await uploadZip({
-        page,
-        zip: getFullPath(zip),
-        packageId
-      })
-    } catch (e) {
-      await browser.close()
-      reject(e)
-      return
-    }
-
-    if (isVerbose) {
-      console.log(
-        getVerboseMessage({
-          market,
-          message: `Uploaded ZIP: ${zip}`
-        })
-      )
-    }
+    await uploadZip({
+      page,
+      zip: getFullPath(zip),
+      packageId
+    })
+    vLog(`Uploaded ZIP: ${zip}`)
 
     await verifyPublicCodeExistence({ page })
-    await addChangelogIfNeeded({ page, changelog, isVerbose, zip })
+    await addChangelogIfNeeded({ page, changelog, isVerbose: verbose, zip })
 
     try {
       await updateExtension({ page, packageId })
     } catch (e) {
       await cancelUpload({ page })
-      await browser.close()
-      reject(e)
-      return
+      throw e
     }
 
     logSuccessfullyPublished({ extId: packageId, market, zip })
 
     await browser.close()
-    resolve(true)
-  })
+
+    return true
+  } catch (error) {
+    await browser.close()
+    throw getVerboseError(error, market, packageId)
+  }
 }

@@ -1,3 +1,4 @@
 node_modules
-key.json
 dist/
+keys.json
+test.zip

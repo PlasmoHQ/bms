@@ -1,14 +1,14 @@
 import type { CommonOptions } from "~commons"
 
 export type OperaOptions = {
-  /** The `sessionid` cookie to login to the publisher's account. If you have a hard time obtaining it, run: `web-ext-deploy --get-cookies=opera` */
+  /** The `sessionid` cookie to login to the publisher's account. */
   sessionid: string
 
-  /** The `csrftoken` cookie to upload the ZIP. If you have a hard time obtaining it, run: `web-ext-deploy --get-cookies=opera` */
+  /** The `csrftoken` cookie to upload the ZIP. */
   csrftoken: string
 
   /** The extension ID. E.g. `https://addons.opera.com/developer/package/PACKAGE_ID` */
-  packageId: number
+  packageId: string
 
   /**
    * A description of the changes in this version, compared to the previous one.<br>
