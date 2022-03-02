@@ -412,9 +412,9 @@ export async function deployToEdge({
       await verifyNewVersionIsGreater({ page, zip })
     }
 
-    await uploadZip({ page, zip, extId })
-
     vLog(`Uploading ZIP: ${zip}`)
+
+    await uploadZip({ page, zip, extId })
 
     await clickButtonNext({ page })
 

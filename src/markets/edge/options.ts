@@ -5,13 +5,11 @@ export type EdgeOptions = {
    * If you have a hard time obtaining it, run: `--get-cookies=edge` */
   cookie: string
 
-  /** The extension ID. E.g. `https://partner.microsoft.com/en-us/dashboard/microsoftedge/EXT_ID` */
   extId: string
 
   /**
    * A description of the technical changes made in this version, compared to the previous one.<br>
-   * This will only be seen by the Edge Extensions reviewers.<br>
-   * It's recommended to use instead `--edge-dev-changelog` , so it stays up to date.
+   * This will only be seen by the Edge Extensions reviewers.
    */
   devChangelog?: string
 } & CommonOptions

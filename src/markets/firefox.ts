@@ -16,8 +16,10 @@ async function deploy({
   verbose,
   zip
 }: FirefoxOptions) {
+  const manifest = getManifestJson(zip)
+
   const client = new MozillaWebstoreClient({
-    extId,
+    extId: manifest["browser_specific_settings"]?.["gecko"]?.["id"] || extId,
     apiKey,
     apiSecret
   })
@@ -30,8 +32,6 @@ async function deploy({
       })
     )
   }
-
-  const manifest = getManifestJson(zip)
 
   try {
     await client.submit({
@@ -57,7 +57,7 @@ export async function deployFirefox(options: FirefoxOptions): Promise<boolean> {
   options.zip = getCorrectZip(options)
 
   validateOptions({
-    market: BrowserName.Firefox,
+    market,
     options,
     errorMap
   })
