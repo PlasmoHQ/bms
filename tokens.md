@@ -58,7 +58,7 @@ Returns `Promise<true>` or throws an exception.
   Obtain it from: https://addons.mozilla.org/en-US/developers/addon/api/key/
 
 - `extId` string  
-  This is the extension UUID, get it from https://addons.mozilla.org/addon/{ext-name}/edit, under Technical Details. If it is embedded in your manifest under gecko.id, _omit this property_.
+  This is the extension UUID, get it from https://addons.mozilla.org/en-US/developers/addon/{ext-name}/edit, under Technical Details. If it is embedded in your manifest under gecko.id, _omit this property_.
 
 - `zip` string
   The relative path from the root to the ZIP.  
