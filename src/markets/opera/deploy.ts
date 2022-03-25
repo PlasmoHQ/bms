@@ -337,8 +337,7 @@ export async function deployToOpera({
   csrftoken,
   packageId,
   zip,
-  changelog = "",
-  verbose
+  changelog = ""
 }: OperaOptions): Promise<boolean> {
   const [width, height] = [1280, 720]
   const puppeteerArgs =

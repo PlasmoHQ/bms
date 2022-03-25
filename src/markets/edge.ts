@@ -1,4 +1,4 @@
-import { MozillaWebstoreClient, Options, errorMap } from "@plasmo-corp/mwu"
+import { EdgeWebstoreClient, Options, errorMap } from "@plasmo-corp/ewu"
 
 import { BrowserName, CommonOptions } from "~commons"
 import { getVerboseError } from "~utils/error"
@@ -10,38 +10,48 @@ import {
 } from "~utils/logging"
 import { validateOptions } from "~utils/validator"
 
-export type FirefoxOptions = Options & CommonOptions
+export type EdgeOptions = Options &
+  CommonOptions & {
+    notes?: string
+  }
 
-const market = BrowserName.Firefox
+const market = BrowserName.Edge
 
 const vLog = getVerboseLogger(market)
 
-async function deploy({ extId, apiKey, apiSecret, zip }: FirefoxOptions) {
+async function deploy({
+  clientId,
+  clientSecret,
+  productId,
+  accessTokenUrl,
+  notes,
+  zip
+}: EdgeOptions) {
   const manifest = getManifestJson(zip)
 
-  const id = manifest["browser_specific_settings"]?.["gecko"]?.["id"] || extId
-  const client = new MozillaWebstoreClient({
-    extId: id,
-    apiKey,
-    apiSecret
+  const client = new EdgeWebstoreClient({
+    clientId,
+    clientSecret,
+    productId,
+    accessTokenUrl
   })
 
-  vLog(`Updating extension with ID ${id}`)
+  vLog(`Updating extension with Product ID ${productId}`)
 
   try {
     await client.submit({
       filePath: zip,
-      version: manifest.version
+      notes
     })
-    logSuccessfullyPublished({ extId: id, market, zip })
+    logSuccessfullyPublished({ extId: productId, market, zip })
 
     return true
   } catch (error) {
-    throw getVerboseError(error, market, `"${id}" (${manifest.name})`)
+    throw getVerboseError(error, market, `"${productId}" (${manifest.name})`)
   }
 }
 
-export async function deployFirefox(options: FirefoxOptions): Promise<boolean> {
+export async function deployEdge(options: EdgeOptions): Promise<boolean> {
   options.zip = getCorrectZip(options)
 
   if (options.verbose) {

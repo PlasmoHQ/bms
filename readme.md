@@ -13,7 +13,8 @@ Supported stores:
 
 - [@plasmo-corp/cwu](https://github.com/plasmo-corp/cwu) - for uploading extensions to Chrome Web Store.
 - [@plasmo-corp/mwu](https://github.com/plasmo-corp/mwu) - for signing and uploading extensions to Firefox Addon API.
-- [Puppeteer](https://github.com/puppeteer/puppeteer) - for uploading extensions on Edge Add-ons / Opera Add-ons store.
+- [@plasmo-corp/ewu](https://github.com/plasmo-corp/edge-webstore-upload) - for uploading and publishing extensions to Edge Add-ons API.
+- [Puppeteer](https://github.com/puppeteer/puppeteer) - for uploading extensions to Opera Add-ons store.
 
 # Installing
 
@@ -26,6 +27,16 @@ yarn add -D @plasmo-corp/bms
 ```
 
 # Usage
+
+Following this [doc](./tokens.md) to gather the tokens necessary for the deployment, OR use [bpp's json schema](https://raw.githubusercontent.com/plasmo-corp/bpp/v1/keys.schema.json) which provides intellisense on editors such as vscode. To use the json schema, create a `keys.json` file in vscode with the following content:
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/plasmo-corp/bpp/v1/keys.schema.json"
+}
+```
+
+Then, the nodejs API can be consumed as follows:
 
 <!-- prettier-ignore -->
 ```ts
@@ -53,8 +64,11 @@ deployFirefox({
 })
 
 deployEdge({
-  extId: "EXT_ID",
-  cookie: ".AspNet.Cookies value",
+  "clientId": "cfe32a4e-e908-477c-a67b-d41561e14c91",
+  "clientSecret": "8uv7Q~WubL3wI2Wncfh1bSuZ61zLhrOFVRcrn",
+  "productId": "3f27b8aa-250f-4e4d-9b2a-a1d14cf1bda7",
+  "accessTokenUrl": "https://login.microsoftonline.com/5c9eedce-81bc-42f3-8823-48ba6258b391/oauth2/v2.0/token",
+
   zip: "dist/some-zip-v{version}.zip",
   devChangelog: "Changes for reviewers",
   verbose: false
@@ -70,15 +84,9 @@ deployOpera({
 })
 ```
 
-Following this [doc](./tokens.md) to gather the tokens necessary for the deployment, OR use [bpp's json schema](https://raw.githubusercontent.com/plasmo-corp/bpp/v1/keys.schema.json) which provides intellisense on editors such as vscode. To use the json schema, create a `keys.json` file in vscode with the following content:
-
-```json
-{
-  "$schema": "https://raw.githubusercontent.com/plasmo-corp/bpp/v1/keys.schema.json"
-}
-```
-
 # Acknowledgment
+
+This library was inspired by:
 
 - [web-ext-deploy](https://github.com/avi12/web-ext-deploy) by [avi12](https://github.com/avi12)
   - The documentation and API of bms is largely inspired by web-ext-deploy.

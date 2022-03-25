@@ -11,8 +11,7 @@ test("dry run successful", async () => {
   await deployEdge({
     verbose: true,
     dryRun: true,
-    cookie: opt.cookie,
-    extId: opt.extId,
-    zip: "test.zip"
+    zip: "test.zip",
+    ...opt
   })
 })

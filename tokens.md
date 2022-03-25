@@ -7,15 +7,12 @@ This guide is a hard fork of [web-ext-deploy](https://github.com/avi12/web-ext-d
 ### Disclaimer: It is your responsibility for leaked cookies or credentials.
 
 - Opera: `sessionid`, `csrftoken`
-- Edge: `.AspNet.Cookies`
 
 To obtain the cookie(s), you can run:
 
 ```shell
-npx web-ext-deploy --get-cookies=edge opera
+npx web-ext-deploy --get-cookies=opera
 ```
-
-Note that for the Chrome Web Store, you'll use the Chrome Web Store Publish API.
 
 ## Table of Contents
 
@@ -71,27 +68,26 @@ Returns `Promise<true>` or throws an exception.
 
 #### Edge Add-ons API
 
-`deployEdge` object  
- Options:
+`deployEdge`
+Options:
 
-- `extId` string  
-  This is the `Product Id` from `https://partner.microsoft.com/en-us/dashboard/microsoftedge/EXT_ID`
-- `cookie` string  
-  The value of the cookie `.AspNet.Cookies`, which will be used to log in to the publisher's account.  
-  If you have a hard time obtaining it, you can run:
+- `productId`:
+  - "Product ID is required. To get it, create an edge add-on and go to the dashboard: https://partner.microsoft.com/en-us/dashboard/microsoftedge/{product-id}/package/dashboard",
+- `clientId`:
+  - "Client ID is required. To get one: https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi",
+- `clientSecret`:
+  - "Client Secret is required. To get one: https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi",
+- `accessTokenUrl`:
 
-```shell
-web-ext-deploy --get-cookies=edge
-```
+  - "Access token URL is required. To get one: https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi"
 
-- `zip` string  
-  The relative path from the root to the ZIP.  
-  You can use `{version}` in the ZIP filename, which will be replaced by the `version` entry from your `package.json`
-- `devChangelog` string?  
-  The technical changes made in this version, compared to the previous one, which will be visible only to the Edge Add-ons reviewers.  
-  I recommend providing the changelog via `--edge-dev-changelog`, so it stays up to date.
-- `verbose` boolean?  
-  If `true`, every step of uploading to the Edge Add-ons will be logged to the console.
+- `zip`:
+  - The relative path from the root to the ZIP.
+    - You can use `{version}` in the ZIP filename, which will be replaced by the `version` entry from your `package.json`
+- `notes` string?
+  - Notes for certification, which will be visible to the Edge Add-ons reviewers.
+- `verbose` boolean?
+  - If `true`, every step of uploading to the Edge Add-ons will be logged to the console.
 
 Returns `Promise<true>` or throws an exception.
 

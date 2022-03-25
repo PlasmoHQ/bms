@@ -29,7 +29,6 @@ async function deploy({
   extId,
   clientId,
   refreshToken,
-  verbose,
   target = "default",
   zip
 }: ChromeOptions) {
