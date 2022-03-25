@@ -56,7 +56,7 @@
   "dependencies": {
     "@plasmo-corp/cwu": "1.8.0",
     "@plasmo-corp/ewu": "0.1.0",
-    "@plasmo-corp/mwu": "1.8.0",
+    "@plasmo-corp/mwu": "2.1.0",
     "compare-versions": "4.1.3",
     "parse-duration": "1.0.2",
     "puppeteer": "13.5.1",
