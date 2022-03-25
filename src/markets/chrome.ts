@@ -30,7 +30,8 @@ async function deploy({
   clientId,
   refreshToken,
   target = "default",
-  zip
+  zip,
+  dryRun
 }: ChromeOptions) {
   const client = new ChromeWebstoreClient({
     extId,
@@ -39,6 +40,10 @@ async function deploy({
   })
 
   vLog(`Updating extension with ID ${extId}`)
+
+  if (dryRun) {
+    return true
+  }
 
   try {
     await client.submit({

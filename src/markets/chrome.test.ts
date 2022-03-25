@@ -1,15 +1,14 @@
 import { expect, test } from "@jest/globals"
 import fs from "fs/promises"
 
-import type { EdgeOptions } from "~index"
-import { deployEdge } from "~index"
+import { ChromeOptions, deployChrome } from "~index"
 
-test("Edge dry run successful", async () => {
+test("Chrome dry run successful", async () => {
   const opt = JSON.parse(await fs.readFile("keys.json", "utf8"))
-    .edge as EdgeOptions
+    .chrome as ChromeOptions
 
   expect(
-    await deployEdge({
+    await deployChrome({
       verbose: true,
       dryRun: true,
       zip: "test.zip",

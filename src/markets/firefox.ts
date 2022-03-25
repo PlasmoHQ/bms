@@ -16,7 +16,13 @@ const market = BrowserName.Firefox
 
 const vLog = getVerboseLogger(market)
 
-async function deploy({ extId, apiKey, apiSecret, zip }: FirefoxOptions) {
+async function deploy({
+  extId,
+  apiKey,
+  apiSecret,
+  zip,
+  dryRun
+}: FirefoxOptions) {
   const manifest = getManifestJson(zip)
 
   const id = manifest["browser_specific_settings"]?.["gecko"]?.["id"] || extId
@@ -27,6 +33,9 @@ async function deploy({ extId, apiKey, apiSecret, zip }: FirefoxOptions) {
   })
 
   vLog(`Updating extension with ID ${id}`)
+  if (dryRun) {
+    return true
+  }
 
   try {
     await client.submit({

@@ -25,7 +25,8 @@ async function deploy({
   productId,
   accessTokenUrl,
   notes,
-  zip
+  zip,
+  dryRun
 }: EdgeOptions) {
   const manifest = getManifestJson(zip)
 
@@ -37,6 +38,10 @@ async function deploy({
   })
 
   vLog(`Updating extension with Product ID ${productId}`)
+
+  if (dryRun) {
+    return true
+  }
 
   try {
     await client.submit({

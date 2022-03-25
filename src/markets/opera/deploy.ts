@@ -337,7 +337,8 @@ export async function deployToOpera({
   csrftoken,
   packageId,
   zip,
-  changelog = ""
+  changelog = "",
+  dryRun
 }: OperaOptions): Promise<boolean> {
   const [width, height] = [1280, 720]
   const puppeteerArgs =
@@ -362,6 +363,10 @@ export async function deployToOpera({
     await openRelevantExtensionPage({ page, packageId })
 
     vLog(`Opened relevant extension page`)
+
+    if (dryRun) {
+      return true
+    }
 
     const isDeleted = await deleteCurrentVersionIfAlreadyExists({
       page,
