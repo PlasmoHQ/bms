@@ -64,13 +64,12 @@ deployFirefox({
 })
 
 deployEdge({
-  "clientId": "cfe32a4e-e908-477c-a67b-d41561e14c91",
-  "clientSecret": "8uv7Q~WubL3wI2Wncfh1bSuZ61zLhrOFVRcrn",
-  "productId": "3f27b8aa-250f-4e4d-9b2a-a1d14cf1bda7",
-  "accessTokenUrl": "https://login.microsoftonline.com/5c9eedce-81bc-42f3-8823-48ba6258b391/oauth2/v2.0/token",
-
+  clientId: "aaaaaaa-aaaa-bbbb-cccc-dddddddddddd",
+  clientSecret: "abcdefg",
+  productId: "aaaaaaa-aaaa-bbbb-cccc-dddddddddddd",
+  accessTokenUrl: "https://login.microsoftonline.com/aaaaaaa-aaaa-bbbb-cccc-dddddddddddd/oauth2/v2.0/token"
   zip: "dist/some-zip-v{version}.zip",
-  devChangelog: "Changes for reviewers",
+  notes: "Changes for reviewers",
   verbose: false
 })
 
