@@ -67,14 +67,14 @@ deployEdge({
   clientId: "aaaaaaa-aaaa-bbbb-cccc-dddddddddddd",
   clientSecret: "abcdefg",
   productId: "aaaaaaa-aaaa-bbbb-cccc-dddddddddddd",
-  accessTokenUrl: "https://login.microsoftonline.com/aaaaaaa-aaaa-bbbb-cccc-dddddddddddd/oauth2/v2.0/token"
+  accessTokenUrl: "https://login.microsoftonline.com/aaaaaaa-aaaa-bbbb-cccc-dddddddddddd/oauth2/v2.0/token",
   zip: "dist/some-zip-v{version}.zip",
   notes: "Changes for reviewers",
   verbose: false
 })
 
 deployOpera({
-  packageId: 123456,
+  packageId: "123456",
   sessionid: "sessionid_value",
   csrftoken: "csrftoken_value",
   zip: "dist/some-zip-v{version}.zip",
