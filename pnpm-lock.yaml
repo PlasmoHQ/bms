@@ -17,7 +17,7 @@ specifiers:
   puppeteer: 13.5.1
   rimraf: 3.0.2
   ts-jest: 27.1.4
-  tsup: 5.12.1
+  tsup: 5.12.5
   typescript: 4.6.3
   zip-local: 0.3.5
 
@@ -41,7 +41,7 @@ devDependencies:
   prettier: 2.6.1
   rimraf: 3.0.2
   ts-jest: 27.1.4_3fea7f1a6ec5b5a86958e9932d38d5a8
-  tsup: 5.12.1_typescript@4.6.3
+  tsup: 5.12.5_typescript@4.6.3
   typescript: 4.6.3
 
 packages:
@@ -917,7 +917,7 @@ packages:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
     engines: {node: '>= 6.0.0'}
     dependencies:
-      debug: 4.3.3
+      debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
 
@@ -1372,6 +1372,7 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
+    dev: false
 
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
@@ -1383,7 +1384,6 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
-    dev: true
 
   /decimal.js/10.3.1:
     resolution: {integrity: sha512-V0pfhfr8suzyPGOx3nmq4aHqabehUZn6Ch9kyFpV79TGDTWFmHqUqXdabR7QHqxzrYolF4+tVmJhUG4OURg5dQ==}
@@ -1765,7 +1765,7 @@ packages:
     engines: {node: '>= 10.17.0'}
     hasBin: true
     dependencies:
-      debug: 4.3.3
+      debug: 4.3.4
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
@@ -2021,7 +2021,7 @@ packages:
     engines: {node: '>= 6'}
     dependencies:
       agent-base: 6.0.2
-      debug: 4.3.3
+      debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
 
@@ -3689,8 +3689,8 @@ packages:
       yargs-parser: 20.2.9
     dev: true
 
-  /tsup/5.12.1_typescript@4.6.3:
-    resolution: {integrity: sha512-vI7E4T6+6n5guQ9UKUOkQmzd1n4V9abGK71lbnzJMLJspbkNby5zlwWvgvHafLdYCb1WXpjFuqqmNLjBA0Wz3g==}
+  /tsup/5.12.5_typescript@4.6.3:
+    resolution: {integrity: sha512-lKwzJsB49sDto51QjqOB4SdiBLKRvgTymEBuBCovcksdDwFEz3esrkbf3m497PXntUKVTzcgOfPdTgknMtvufw==}
     hasBin: true
     peerDependencies:
       typescript: ^4.1.0
