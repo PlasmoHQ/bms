@@ -36,4 +36,7 @@ export type CommonOptions = {
 
   /** If `true`, it will only upload the zip but does not actually hit submission */
   dryRun?: boolean
+
+  /** Release notes */
+  notes?: string
 }

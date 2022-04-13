@@ -10,11 +10,7 @@ import {
 } from "~utils/logging"
 import { validateOptions } from "~utils/validator"
 
-export type EdgeOptions = Options &
-  CommonOptions & {
-    notes?: string
-  }
-
+export type EdgeOptions = Options & CommonOptions
 const market = BrowserName.Edge
 
 const vLog = getVerboseLogger(market)

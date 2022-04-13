@@ -1,6 +1,6 @@
 {
   "name": "@plasmo-corp/bms",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Browser Market Submission",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,7 +18,7 @@
     "clean": "rimraf dist",
     "prepublishOnly": "run-s clean build"
   },
-  "author": "Plasmo Corp. <support@plasmo.com>",
+  "author": "Plasmo Corp. <foss@plasmo.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/plasmo-corp/bms.git"
