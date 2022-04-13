@@ -83,6 +83,10 @@ deployOpera({
 })
 ```
 
+# Support
+
+Join the [Discord channel](https://discord.browser.market)!
+
 # Acknowledgment
 
 This library was inspired by:
