@@ -28,11 +28,11 @@ yarn add -D @plasmo-corp/bms
 
 # Usage
 
-Following this [doc](./tokens.md) to gather the tokens necessary for the deployment, OR use [bpp's json schema](https://raw.githubusercontent.com/plasmo-corp/bpp/v1/keys.schema.json) which provides intellisense on editors such as vscode. To use the json schema, create a `keys.json` file in vscode with the following content:
+Following this [doc](./tokens.md) to gather the tokens necessary for the deployment, OR use [bpp's json schema](https://raw.githubusercontent.com/plasmo-corp/bpp/v2/keys.schema.json) which provides intellisense on editors such as vscode. To use the json schema, create a `keys.json` file in vscode with the following content:
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/plasmo-corp/bpp/v1/keys.schema.json"
+  "$schema": "https://raw.githubusercontent.com/plasmo-corp/bpp/v2/keys.schema.json"
 }
 ```
 

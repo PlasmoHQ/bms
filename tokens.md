@@ -40,7 +40,7 @@ npx web-ext-deploy --get-cookies=opera
 - `verbose` boolean?  
   If `true`, it will be logged to the console when the uploading has begun.
 
-To get your `refreshToken` and `clientId`, [follow this guide](https://github.com/fregante/chrome-webstore-upload/blob/main/How%20to%20generate%20Google%20API%20keys.md).
+To get your `refreshToken` and `clientId`, [follow this guide](https://github.com/plasmo-corp/cwu/blob/main/token.md).
 
 Returns `Promise<true>` or throws an exception.
 
