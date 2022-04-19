@@ -1,6 +1,6 @@
 # Browser Market Submit
 
-This library is used to deploy browser extensions to multiple stores. It is made to be used in [bpp](https://browser.market)
+A nodejs library from [plasmo](https://www.plasmo.com/) to deploy browser extensions to multiple stores. It is made to be used in [bpp](https://browser.market)
 
 Supported stores:
 
@@ -11,7 +11,7 @@ Supported stores:
 
 # Core packages used
 
-- [@plasmo-corp/cwu](https://github.com/plasmo-corp/cwu) - for uploading extensions to Chrome Web Store.
+- [@plasmo-corp/cwu](https://github.com/plasmo-corp/chrome-webstore-api) - for uploading extensions to Chrome Web Store.
 - [@plasmo-corp/mwu](https://github.com/plasmo-corp/mwu) - for signing and uploading extensions to Firefox Addon API.
 - [@plasmo-corp/ewu](https://github.com/plasmo-corp/edge-webstore-upload) - for uploading and publishing extensions to Edge Add-ons API.
 - [Puppeteer](https://github.com/puppeteer/puppeteer) - for uploading extensions to Opera Add-ons store.
