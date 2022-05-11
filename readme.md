@@ -11,19 +11,19 @@ Supported stores:
 
 # Core packages used
 
-- [@PlasmoHQ/cwu](https://github.com/PlasmoHQ/chrome-webstore-api) - for uploading extensions to Chrome Web Store.
-- [@PlasmoHQ/mwu](https://github.com/PlasmoHQ/mwu) - for signing and uploading extensions to Firefox Addon API.
-- [@PlasmoHQ/ewu](https://github.com/PlasmoHQ/edge-webstore-upload) - for uploading and publishing extensions to Edge Add-ons API.
+- [@plasmo-corp/cwu](https://github.com/PlasmoHQ/chrome-webstore-api) - for uploading extensions to Chrome Web Store.
+- [@plasmo-corp/mwu](https://github.com/PlasmoHQ/mwu) - for signing and uploading extensions to Firefox Addon API.
+- [@plasmo-corp/ewu](https://github.com/PlasmoHQ/edge-webstore-upload) - for uploading and publishing extensions to Edge Add-ons API.
 - [Puppeteer](https://github.com/puppeteer/puppeteer) - for uploading extensions to Opera Add-ons store.
 
 # Installing
 
 ```shell
-npm i -D @PlasmoHQ/bms
+npm i -D @plasmo-corp/bms
 # or
-pnpm i -D @PlasmoHQ/bms
+pnpm i -D @plasmo-corp/bms
 # or
-yarn add -D @PlasmoHQ/bms
+yarn add -D @plasmo-corp/bms
 ```
 
 # Usage
@@ -45,7 +45,7 @@ import {
   deployEdge,
   deployFirefox,
   deployOpera,
-} from "@PlasmoHQ/bms"
+} from "@plasmo-corp/bms"
 
 deployChrome({
   extId: "EXT_ID",
