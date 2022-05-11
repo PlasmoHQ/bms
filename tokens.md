@@ -1,6 +1,6 @@
 # Tokens
 
-This guide is a hard fork of [web-ext-deploy](https://github.com/avi12/web-ext-deploy) readme, adapted for [bms](https://github.com/plasmo-corp/bms).
+This guide is a hard fork of [web-ext-deploy](https://github.com/avi12/web-ext-deploy) readme, adapted for [bms](https://github.com/PlasmoHQ/bms).
 
 ## Obtain the relevant cookie(s) of the publisher's account:
 
@@ -40,7 +40,7 @@ npx web-ext-deploy --get-cookies=opera
 - `verbose` boolean?  
   If `true`, it will be logged to the console when the uploading has begun.
 
-To get your `refreshToken` and `clientId`, [follow this guide](https://github.com/plasmo-corp/cwu/blob/main/token.md).
+To get your `refreshToken` and `clientId`, [follow this guide](https://github.com/PlasmoHQ/cwu/blob/main/token.md).
 
 Returns `Promise<true>` or throws an exception.
 

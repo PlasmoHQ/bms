@@ -11,28 +11,28 @@ Supported stores:
 
 # Core packages used
 
-- [@plasmo-corp/cwu](https://github.com/plasmo-corp/chrome-webstore-api) - for uploading extensions to Chrome Web Store.
-- [@plasmo-corp/mwu](https://github.com/plasmo-corp/mwu) - for signing and uploading extensions to Firefox Addon API.
-- [@plasmo-corp/ewu](https://github.com/plasmo-corp/edge-webstore-upload) - for uploading and publishing extensions to Edge Add-ons API.
+- [@PlasmoHQ/cwu](https://github.com/PlasmoHQ/chrome-webstore-api) - for uploading extensions to Chrome Web Store.
+- [@PlasmoHQ/mwu](https://github.com/PlasmoHQ/mwu) - for signing and uploading extensions to Firefox Addon API.
+- [@PlasmoHQ/ewu](https://github.com/PlasmoHQ/edge-webstore-upload) - for uploading and publishing extensions to Edge Add-ons API.
 - [Puppeteer](https://github.com/puppeteer/puppeteer) - for uploading extensions to Opera Add-ons store.
 
 # Installing
 
 ```shell
-npm i -D @plasmo-corp/bms
+npm i -D @PlasmoHQ/bms
 # or
-pnpm i -D @plasmo-corp/bms
+pnpm i -D @PlasmoHQ/bms
 # or
-yarn add -D @plasmo-corp/bms
+yarn add -D @PlasmoHQ/bms
 ```
 
 # Usage
 
-Following this [doc](./tokens.md) to gather the tokens necessary for the deployment, OR use [bpp's json schema](https://raw.githubusercontent.com/plasmo-corp/bpp/v2/keys.schema.json) which provides intellisense on editors such as vscode. To use the json schema, create a `keys.json` file in vscode with the following content:
+Following this [doc](./tokens.md) to gather the tokens necessary for the deployment, OR use [bpp's json schema](https://raw.githubusercontent.com/PlasmoHQ/bpp/v2/keys.schema.json) which provides intellisense on editors such as vscode. To use the json schema, create a `keys.json` file in vscode with the following content:
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/plasmo-corp/bpp/v2/keys.schema.json"
+  "$schema": "https://raw.githubusercontent.com/PlasmoHQ/bpp/v2/keys.schema.json"
 }
 ```
 
@@ -45,7 +45,7 @@ import {
   deployEdge,
   deployFirefox,
   deployOpera,
-} from "@plasmo-corp/bms"
+} from "@PlasmoHQ/bms"
 
 deployChrome({
   extId: "EXT_ID",
