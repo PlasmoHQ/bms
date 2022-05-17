@@ -1,6 +1,33 @@
+<p align="center">
+  <a href="https://plasmo.com">
+    <img alt="plasmo logo banner" width="75%" src="https://www.plasmo.com/assets/banner-black-on-white.png" />
+  </a>
+</p>
+
+<p align="center">
+  <a aria-label="License" href="./license">
+    <img alt="See License" src="https://img.shields.io/npm/l/@plasmohq/bms"/>
+  </a>
+  <a aria-label="NPM" href="https://www.npmjs.com/package/@plasmohq/bms">
+    <img alt="NPM Install" src="https://img.shields.io/npm/v/@plasmohq/bms?logo=npm"/>
+  </a>
+  <a aria-label="Twitter" href="https://www.twitter.com/plasmohq">
+    <img alt="Follow PlasmoHQ on Twitter" src="https://img.shields.io/twitter/follow/plasmohq?logo=twitter"/>
+  </a>
+  <a aria-label="Twitch Stream" href="https://www.twitch.tv/plasmohq">
+    <img alt="Watch our Live DEMO every Friday" src="https://img.shields.io/twitch/status/plasmohq?logo=twitch&logoColor=white"/>
+  </a>
+  <a aria-label="Discord" href="https://www.plasmo.com/s/d">
+    <img alt="Join our Discord for support and chat about our projects" src="https://img.shields.io/discord/904466750429609984?logo=discord&logoColor=white"/>
+  </a>
+  <a aria-label="Build status" href="https://github.com/PlasmoHQ/bpp/actions">
+    <img alt="typescript-action status" src="https://github.com/PlasmoHQ/bpp/workflows/build-test/badge.svg"/>
+  </a>
+</p>
+
 # Browser Market Submit
 
-A nodejs library from [plasmo](https://www.plasmo.com/) to deploy browser extensions to multiple stores. It is made to be used in [bpp](https://browser.market)
+A nodejs library from [plasmo](https://www.plasmo.com/) to submit browser extensions to multiple stores. It is made to be used in the [Browser Platform Publisher](https://bpp.browser.market) action.
 
 Supported stores:
 
@@ -11,19 +38,19 @@ Supported stores:
 
 # Core packages used
 
-- [@plasmo-corp/cwu](https://github.com/PlasmoHQ/chrome-webstore-api) - for uploading extensions to Chrome Web Store.
-- [@plasmo-corp/mwu](https://github.com/PlasmoHQ/mwu) - for signing and uploading extensions to Firefox Addon API.
-- [@plasmo-corp/ewu](https://github.com/PlasmoHQ/edge-webstore-upload) - for uploading and publishing extensions to Edge Add-ons API.
+- [@plasmohq/chrome-webstore-api](https://github.com/PlasmoHQ/chrome-webstore-api) - for uploading extensions to Chrome Web Store.
+- [@plasmohq/mozilla-addons-api](https://github.com/PlasmoHQ/mozilla-addons-api) - for signing and uploading extensions to Firefox Addon API.
+- [@plasmohq/edge-addons-api](https://github.com/PlasmoHQ/edge-addons-api) - for uploading and publishing extensions to Edge Add-ons API.
 - [Puppeteer](https://github.com/puppeteer/puppeteer) - for uploading extensions to Opera Add-ons store.
 
 # Installing
 
 ```shell
-npm i -D @plasmo-corp/bms
+npm i -D @plasmohq/bms
 # or
-pnpm i -D @plasmo-corp/bms
+pnpm i -D @plasmohq/bms
 # or
-yarn add -D @plasmo-corp/bms
+yarn add -D @plasmohq/bms
 ```
 
 # Usage
@@ -41,21 +68,21 @@ Then, the nodejs API can be consumed as follows:
 <!-- prettier-ignore -->
 ```ts
 import {
-  deployChrome,
-  deployEdge,
-  deployFirefox,
-  deployOpera,
-} from "@plasmo-corp/bms"
+  submitChrome,
+  submitEdge,
+  submitFirefox,
+  submitOpera,
+} from "@plasmohq/bms"
 
-deployChrome({
+submitChrome({
   extId: "EXT_ID",
   refreshToken: "refreshToken",
-  clientId: "clientId",
+  clientId: "clientIdsubmit",
   zip: "dist/some-zip-v{version}.zip",
   verbose: false
 })
 
-deployFirefox({
+submitFirefox({
   extId: "EXT_ID",
   apiKey: "api_key",
   apiSecret: "api_secret",
@@ -63,7 +90,7 @@ deployFirefox({
   verbose: false
 })
 
-deployEdge({
+submitEdge({
   clientId: "aaaaaaa-aaaa-bbbb-cccc-dddddddddddd",
   clientSecret: "abcdefg",
   productId: "aaaaaaa-aaaa-bbbb-cccc-dddddddddddd",
@@ -73,7 +100,7 @@ deployEdge({
   verbose: false
 })
 
-deployOpera({
+submitOpera({
   packageId: "123456",
   sessionid: "sessionid_value",
   csrftoken: "csrftoken_value",
@@ -85,7 +112,7 @@ deployOpera({
 
 # Support
 
-Join the [Discord channel](https://discord.browser.market)!
+Join our [Discord channel](https://www.plasmo.com/s/d)!
 
 # Acknowledgment
 

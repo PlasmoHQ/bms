@@ -1,4 +1,8 @@
-import { MozillaWebstoreClient, Options, errorMap } from "@plasmo-corp/mwu"
+import {
+  MozillaAddonsAPI,
+  Options,
+  errorMap
+} from "@plasmohq/mozilla-addons-api"
 
 import { BrowserName, CommonOptions } from "~commons"
 import { getVerboseError } from "~utils/error"
@@ -16,7 +20,7 @@ const market = BrowserName.Firefox
 
 const vLog = getVerboseLogger(market)
 
-async function deploy({
+async function submit({
   extId,
   apiKey,
   apiSecret,
@@ -26,7 +30,7 @@ async function deploy({
   const manifest = getManifestJson(zip)
 
   const id = manifest["browser_specific_settings"]?.["gecko"]?.["id"] || extId
-  const client = new MozillaWebstoreClient({
+  const client = new MozillaAddonsAPI({
     extId: id,
     apiKey,
     apiSecret
@@ -50,7 +54,7 @@ async function deploy({
   }
 }
 
-export async function deployFirefox(options: FirefoxOptions): Promise<boolean> {
+export async function submitFirefox(options: FirefoxOptions): Promise<boolean> {
   options.zip = getCorrectZip(options)
 
   if (options.verbose) {
@@ -63,5 +67,5 @@ export async function deployFirefox(options: FirefoxOptions): Promise<boolean> {
     errorMap
   })
 
-  return deploy(options)
+  return submit(options)
 }

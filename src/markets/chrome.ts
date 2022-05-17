@@ -1,9 +1,9 @@
 import {
-  ChromeWebstoreClient,
+  ChromeWebstoreAPI,
   Options,
   PublishTarget,
   errorMap
-} from "@plasmo-corp/cwu"
+} from "@plasmohq/chrome-webstore-api"
 
 import type { CommonOptions } from "~commons"
 import { BrowserName } from "~commons"
@@ -25,7 +25,7 @@ const market = BrowserName.Chrome
 
 const vLog = getVerboseLogger(market)
 
-async function deploy({
+async function submit({
   extId,
   clientId,
   refreshToken,
@@ -33,7 +33,7 @@ async function deploy({
   zip,
   dryRun
 }: ChromeOptions) {
-  const client = new ChromeWebstoreClient({
+  const client = new ChromeWebstoreAPI({
     extId,
     clientId,
     refreshToken
@@ -59,7 +59,7 @@ async function deploy({
   }
 }
 
-export async function deployChrome(options: ChromeOptions): Promise<boolean> {
+export async function submitChrome(options: ChromeOptions): Promise<boolean> {
   options.zip = getCorrectZip(options)
 
   if (options.verbose) {
@@ -72,5 +72,5 @@ export async function deployChrome(options: ChromeOptions): Promise<boolean> {
     errorMap
   })
 
-  return deploy(options)
+  return submit(options)
 }

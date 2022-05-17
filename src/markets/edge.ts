@@ -1,4 +1,4 @@
-import { EdgeWebstoreClient, Options, errorMap } from "@plasmo-corp/ewu"
+import { EdgeAddonsAPI, Options, errorMap } from "@plasmohq/edge-addons-api"
 
 import { BrowserName, CommonOptions } from "~commons"
 import { getVerboseError } from "~utils/error"
@@ -15,7 +15,7 @@ const market = BrowserName.Edge
 
 const vLog = getVerboseLogger(market)
 
-async function deploy({
+async function submit({
   clientId,
   clientSecret,
   productId,
@@ -26,7 +26,7 @@ async function deploy({
 }: EdgeOptions) {
   const manifest = getManifestJson(zip)
 
-  const client = new EdgeWebstoreClient({
+  const client = new EdgeAddonsAPI({
     clientId,
     clientSecret,
     productId,
@@ -52,7 +52,7 @@ async function deploy({
   }
 }
 
-export async function deployEdge(options: EdgeOptions): Promise<boolean> {
+export async function submitEdge(options: EdgeOptions): Promise<boolean> {
   options.zip = getCorrectZip(options)
 
   if (options.verbose) {
@@ -65,5 +65,5 @@ export async function deployEdge(options: EdgeOptions): Promise<boolean> {
     errorMap
   })
 
-  return deploy(options)
+  return submit(options)
 }

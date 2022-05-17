@@ -332,7 +332,7 @@ async function deleteCurrentVersionIfAlreadyExists({
   return false
 }
 
-export async function deployToOpera({
+export async function submitToOpera({
   sessionid,
   csrftoken,
   packageId,
