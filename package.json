@@ -54,7 +54,7 @@
   "dependencies": {
     "@plasmohq/cwu": "2.4.0",
     "@plasmohq/ewu": "0.6.0",
-    "@plasmohq/mwu": "2.2.2",
+    "@plasmohq/mwu": "2.2.3",
     "compare-versions": "4.1.3",
     "parse-duration": "1.0.2",
     "puppeteer": "14.1.0",
