@@ -52,7 +52,7 @@
     "typescript": "4.6.4"
   },
   "dependencies": {
-    "@plasmohq/cwu": "2.4.0",
+    "@plasmohq/cwu": "2.4.2",
     "@plasmohq/ewu": "0.6.0",
     "@plasmohq/mwu": "2.2.2",
     "compare-versions": "4.1.3",
