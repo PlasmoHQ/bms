@@ -35,12 +35,14 @@ Supported stores:
 - [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/extensions)
 - [Edge Add-ons](https://microsoftedge.microsoft.com/addons)
 - [Opera Add-ons](https://addons.opera.com/en/extensions)
+- [Safari via Apple App Store](https://developer.apple.com/safari/extensions/)
 
 # Core packages used
 
 - [@plasmohq/chrome-webstore-api](https://github.com/PlasmoHQ/chrome-webstore-api) - for uploading extensions to Chrome Web Store.
 - [@plasmohq/mozilla-addons-api](https://github.com/PlasmoHQ/mozilla-addons-api) - for signing and uploading extensions to Firefox Addon API.
 - [@plasmohq/edge-addons-api](https://github.com/PlasmoHQ/edge-addons-api) - for uploading and publishing extensions to Edge Add-ons API.
+- [@plasmohq/safari-publisher](https://github.com/PlasmoHQ/safari-publisher) - for converting and publishing extensions to the Apple App Store for Safari.
 - [Puppeteer](https://github.com/puppeteer/puppeteer) - for uploading extensions to Opera Add-ons store.
 
 # Installing
@@ -72,6 +74,7 @@ import {
   submitEdge,
   submitFirefox,
   submitOpera,
+  submitSafari
 } from "@plasmohq/bms"
 
 submitChrome({
@@ -106,6 +109,23 @@ submitOpera({
   csrftoken: "csrftoken_value",
   zip: "dist/some-zip-v{version}.zip",
   changelog: "Some changes",
+  verbose: false
+})
+
+submitSafari({
+  zip: "dist/some-zip-v{version}.zip",
+  bundleId: "com.plasmo.mock",
+  appName: "Plasmo Mock",
+  appCategory: "developer-tools",
+  platforms: ["ios", "macos"],
+  appleId: "DEVELOPER_APPLE_ID",
+  teamId: "APPLE_DEVELOPER_TEAM_ID",
+  teamName: "Plasmo Corp.",
+  keyId: "APP_STORE_CONNECT_API_KEY_ID",
+  issuerId: "APP_STORE_CONNECT_API_ISSUER_ID",
+  key: "APP_STORE_CONNECT_API_KEY",
+  matchPassword: "YOUR_MATCH_ENCRYPTION_PASSWORD",
+  matchGitUrl: "YOUR_MATCH_REPO"
   verbose: false
 })
 ```

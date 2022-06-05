@@ -2,21 +2,24 @@ export enum BrowserName {
   Chrome = "chrome",
   Firefox = "firefox",
   Opera = "opera",
-  Edge = "edge"
+  Edge = "edge",
+  Safari = "safari"
 }
 
 export const supportedBrowserSet = new Set([
   BrowserName.Chrome,
   BrowserName.Firefox,
   BrowserName.Opera,
-  BrowserName.Edge
+  BrowserName.Edge,
+  BrowserName.Safari
 ])
 
 export const marketNameMap = {
   [BrowserName.Chrome]: "Chrome Web Store",
   [BrowserName.Firefox]: "Firefox Add-ons",
   [BrowserName.Opera]: "Opera Add-ons",
-  [BrowserName.Edge]: "Edge Add-ons"
+  [BrowserName.Edge]: "Edge Add-ons",
+  [BrowserName.Safari]: "Safari via Apple App Store"
 }
 
 export type CommonOptions = {

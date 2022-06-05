@@ -4,6 +4,7 @@
 - [Firefox Add-ons](#firefox-add-ons-api)
 - [Edge Add-ons](#edge-add-ons-api)
 - [Opera Add-ons](#opera-add-ons-api)
+- [Safari via Apple App Store](#safari-publisher)
 
 ## Chrome Web Store API
 
@@ -68,6 +69,14 @@ Returns `Promise<true>` or throws an exception.
 | `zip`       | string      | The relative path from the root to the ZIP. You can use `{version}` in the ZIP filename, which will be replaced by the `version` entry from your `package.json` |
 | `verbose`   | boolean?    | If `true`, every step of uploading to the Firefox Add-ons will be logged to the console.                                                                        |
 | `changelog` | string?     | The changes made in this version, compared to the previous one, which will be seen by the Opera users.                                                          |
+
+Returns `Promise<true>` or throws an exception.
+
+## Safari Publisher
+
+`submitSafari`
+
+Reference available options on [Safari Publisher docs](https://github.com/PlasmoHQ/safari-publisher#options)
 
 Returns `Promise<true>` or throws an exception.
 
