@@ -78,6 +78,7 @@ submitChrome({
   extId: "EXT_ID",
   refreshToken: "refreshToken",
   clientId: "clientIdsubmit",
+  clientSecret: "clientSecret",
   zip: "dist/some-zip-v{version}.zip",
   verbose: false
 })

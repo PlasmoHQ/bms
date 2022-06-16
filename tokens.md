@@ -14,6 +14,7 @@
 | `extId`        | string      | Get it from `https://chrome.google.com/webstore/detail/EXT_ID`, e.g. `https://chrome.google.com/webstore/detail/fcphghnknhkimeagdglkljinmpbagone` |
 | `refreshToken` | string      | [Guide](https://github.com/PlasmoHQ/chrome-webstore-api/blob/main/token.md)                                                                       |
 | `clientId`     | string      | [Guide (same as refreshToken)](https://github.com/PlasmoHQ/chrome-webstore-api/blob/main/token.md)                                                |
+| `clientSecret` | string      | [Guide (same as refreshToken)](https://github.com/PlasmoHQ/chrome-webstore-api/blob/main/token.md)                                                |
 | `target`       | string      | The target to deploy to, either "default" or "trustedTesters". Defaults to "default".                                                             |
 | `zip`          | string      | The relative path from the root to the ZIP. You can use `{version}` to use the `version` entry from your `package.json`                           |
 | `verbose`      | boolean?    | Enable verbose logging                                                                                                                            |

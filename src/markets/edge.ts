@@ -15,22 +15,12 @@ const market = BrowserName.Edge
 
 const vLog = getVerboseLogger(market)
 
-async function submit({
-  clientId,
-  clientSecret,
-  productId,
-  accessTokenUrl,
-  notes,
-  zip,
-  dryRun
-}: EdgeOptions) {
+async function submit({ productId, notes, zip, dryRun, ...opts }: EdgeOptions) {
   const manifest = getManifestJson(zip)
 
   const client = new EdgeAddonsAPI({
-    clientId,
-    clientSecret,
     productId,
-    accessTokenUrl
+    ...opts
   })
 
   vLog(`Updating extension with Product ID ${productId}`)

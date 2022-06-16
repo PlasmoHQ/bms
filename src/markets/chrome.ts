@@ -27,16 +27,14 @@ const vLog = getVerboseLogger(market)
 
 async function submit({
   extId,
-  clientId,
-  refreshToken,
   target = "default",
   zip,
-  dryRun
+  dryRun,
+  ...opts
 }: ChromeOptions) {
   const client = new ChromeWebstoreAPI({
     extId,
-    clientId,
-    refreshToken
+    ...opts
   })
 
   vLog(`Updating extension with ID ${extId}`)
