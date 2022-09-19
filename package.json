@@ -8,7 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "esbuild src/index.ts --bundle --watch --sourcemap --platform=node --outdir=dist --external:puppeteer",
+    "dev": "esbuild src/index.ts --bundle --watch --sourcemap --platform=node --outdir=dist",
     "build": "run-p build:type build:compile",
     "build:type": "tsup src/index.ts --dts-only --dts-resolve",
     "build:compile": "esbuild src/index.ts --bundle --minify --platform=node --outdir=dist",
@@ -32,7 +32,6 @@
     "submission",
     "browser-addons",
     "firefox",
-    "opera",
     "chrome",
     "edge"
   ],
@@ -40,7 +39,7 @@
   "devDependencies": {
     "@jest/globals": "29.0.3",
     "@plasmohq/rps": "1.5.1",
-    "@trivago/prettier-plugin-sort-imports": "3.3.0",
+    "@plasmohq/prettier-plugin-sort-imports": "3.5.1",
     "@types/node": "18.7.18",
     "cross-env": "7.0.3",
     "esbuild": "0.15.8",
@@ -57,7 +56,6 @@
     "@plasmohq/mozilla-addons-api": "workspace:*",
     "compare-versions": "5.0.1",
     "parse-duration": "1.0.2",
-    "puppeteer": "18.0.2",
-    "zip-local": "0.3.5"
+    "fflate": "0.7.3"
   }
 }

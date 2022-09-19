@@ -14,5 +14,5 @@ module.exports = {
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
 
-  plugins: [require.resolve("@trivago/prettier-plugin-sort-imports")]
+  plugins: [require.resolve("@plasmohq/prettier-plugin-sort-imports")]
 }

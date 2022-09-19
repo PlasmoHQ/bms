@@ -34,14 +34,16 @@ Supported stores:
 - [Chrome Web Store](https://chrome.google.com/webstore/category/extensions)
 - [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/extensions)
 - [Edge Add-ons](https://microsoftedge.microsoft.com/addons)
-- [Opera Add-ons](https://addons.opera.com/en/extensions)
+
+Unsupported stores:
+
+- [Opera Add-ons](https://addons.opera.com/en/extensions): They do not have an automation API, and their cookie expires in 24 hours, making them unsuitable for CI/CD.
 
 # Core packages used
 
 - [@plasmohq/chrome-webstore-api](https://github.com/PlasmoHQ/chrome-webstore-api) - for uploading extensions to Chrome Web Store.
 - [@plasmohq/mozilla-addons-api](https://github.com/PlasmoHQ/mozilla-addons-api) - for signing and uploading extensions to Firefox Addon API.
 - [@plasmohq/edge-addons-api](https://github.com/PlasmoHQ/edge-addons-api) - for uploading and publishing extensions to Edge Add-ons API.
-- [Puppeteer](https://github.com/puppeteer/puppeteer) - for uploading extensions to Opera Add-ons store.
 
 # Installing
 
@@ -71,7 +73,6 @@ import {
   submitChrome,
   submitEdge,
   submitFirefox,
-  submitOpera,
 } from "@plasmohq/bms"
 
 submitChrome({
@@ -98,15 +99,6 @@ submitEdge({
   accessTokenUrl: "https://login.microsoftonline.com/aaaaaaa-aaaa-bbbb-cccc-dddddddddddd/oauth2/v2.0/token",
   zip: "dist/some-zip-v{version}.zip",
   notes: "Changes for reviewers",
-  verbose: false
-})
-
-submitOpera({
-  packageId: "123456",
-  sessionid: "sessionid_value",
-  csrftoken: "csrftoken_value",
-  zip: "dist/some-zip-v{version}.zip",
-  changelog: "Some changes",
   verbose: false
 })
 ```

@@ -59,6 +59,8 @@ Returns `Promise<true>` or throws an exception.
 
 ## Opera Add-ons API
 
+> NOTE: Support for Opera Store has been DROPPED due to their client token and cookie expires in 24 hours, which is not suitable for CI/CD pipeline. It's easier to just drag/drop the zip file on their extension page.
+
 `submitOpera`
 
 | Argument    | Description | How to Obtain                                                                                                                                                   |

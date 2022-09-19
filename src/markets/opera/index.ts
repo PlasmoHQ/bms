@@ -4,7 +4,6 @@ import { enableVerboseLogging } from "~utils/logging"
 import { validateOptions } from "~utils/validator.js"
 
 import { OperaOptions, errorMap } from "./options"
-import { submitToOpera } from "./submit"
 
 export type { OperaOptions }
 
@@ -23,5 +22,7 @@ export async function submitOpera(options: OperaOptions): Promise<boolean> {
 
   validateOptions({ market, options, errorMap })
 
-  return submitToOpera(options)
+  throw new Error(
+    "Opera submission is not supported at this time, due to lack of automation API - their CSRF token and cookies expires in 24 hours. It will be faster to just drag/drop the zip on their dev portal."
+  )
 }

@@ -1,7 +1,7 @@
+import { strFromU8, unzipSync } from "fflate"
 import { existsSync, readFileSync } from "fs"
 import { resolve } from "path"
 import { cwd } from "process"
-import zipper from "zip-local"
 
 export const getFullPath = (file: string) => resolve(cwd(), file)
 
@@ -20,7 +20,8 @@ export function getCorrectZip({
 }
 
 export function getManifestJson(zip: string) {
-  const unzippedFs = zipper.sync.unzip(zip).memory()
-  const manifest = unzippedFs.read("manifest.json", "text")
+  const fileBuffer = readFileSync(getFullPath(zip))
+  const unzip = unzipSync(fileBuffer)
+  const manifest = strFromU8(unzip["manifest.json"])
   return JSON.parse(manifest)
 }
