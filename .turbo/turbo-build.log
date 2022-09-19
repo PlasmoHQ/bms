@@ -1,0 +1,23 @@
+[34m@plasmohq/bms:build[0m: cache hit, replaying output [2m00094f5517f83df0[0m
+[34m@plasmohq/bms:build: [0m
+[34m@plasmohq/bms:build: [0m> @plasmohq/bms@1.14.0 build P:\Projects\plasmo-corp\bpp\packages\bms
+[34m@plasmohq/bms:build: [0m> run-p build:type build:compile
+[34m@plasmohq/bms:build: [0m
+[34m@plasmohq/bms:build: [0m
+[34m@plasmohq/bms:build: [0m> @plasmohq/bms@1.14.0 build:type P:\Projects\plasmo-corp\bpp\packages\bms
+[34m@plasmohq/bms:build: [0m> tsup src/index.ts --dts-only --dts-resolve
+[34m@plasmohq/bms:build: [0m
+[34m@plasmohq/bms:build: [0m
+[34m@plasmohq/bms:build: [0m> @plasmohq/bms@1.14.0 build:compile P:\Projects\plasmo-corp\bpp\packages\bms
+[34m@plasmohq/bms:build: [0m> esbuild src/index.ts --bundle --minify --platform=node --outdir=dist
+[34m@plasmohq/bms:build: [0m
+[34m@plasmohq/bms:build: [0m
+[34m@plasmohq/bms:build: [0m  dist\index.js  1.1mb ⚠️
+[34m@plasmohq/bms:build: [0m
+[34m@plasmohq/bms:build: [0m⚡ Done in 249ms
+[34m@plasmohq/bms:build: [0m[34mCLI[39m Building entry: src/index.ts
+[34m@plasmohq/bms:build: [0m[34mCLI[39m Using tsconfig: tsconfig.json
+[34m@plasmohq/bms:build: [0m[34mCLI[39m tsup v6.2.3
+[34m@plasmohq/bms:build: [0m[34mDTS[39m Build start
+[34m@plasmohq/bms:build: [0m[32mDTS[39m ⚡️ Build success in 1914ms
+[34m@plasmohq/bms:build: [0m[32mDTS[39m [1mdist\index.d.ts [22m[32m2.39 KB[39m
