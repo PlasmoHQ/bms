@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a aria-label="License" href="./license">
+  <a aria-label="License" href="./LICENSE">
     <img alt="See License" src="https://img.shields.io/npm/l/@plasmohq/bms"/>
   </a>
   <a aria-label="NPM" href="https://www.npmjs.com/package/@plasmohq/bms">
