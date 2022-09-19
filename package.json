@@ -52,9 +52,9 @@
     "typescript": "4.8.3"
   },
   "dependencies": {
-    "@plasmohq/chrome-webstore-api": "2.6.1",
-    "@plasmohq/edge-addons-api": "1.0.1",
-    "@plasmohq/mozilla-addons-api": "2.3.2",
+    "@plasmohq/chrome-webstore-api": "workspace:*",
+    "@plasmohq/edge-addons-api": "workspace:*",
+    "@plasmohq/mozilla-addons-api": "workspace:*",
     "compare-versions": "5.0.1",
     "parse-duration": "1.0.2",
     "puppeteer": "17.1.3",
