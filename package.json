@@ -1,6 +1,6 @@
 {
   "name": "@plasmohq/bms",
-  "version": "1.14.0",
+  "version": "1.15.0",
   "description": "Browser Market Submission",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "dev": "esbuild src/index.ts --bundle --watch --sourcemap --platform=node --outdir=dist",
-    "build": "run-p build:type build:compile",
+    "build": "run-p build:*",
     "build:type": "tsup src/index.ts --dts-only --dts-resolve",
     "build:compile": "esbuild src/index.ts --bundle --minify --platform=node --outdir=dist",
     "#dev": "tsup src/index.ts --watch --sourcemap inline",
