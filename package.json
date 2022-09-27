@@ -38,9 +38,9 @@
   "license": "MIT",
   "devDependencies": {
     "@jest/globals": "29.0.3",
-    "@plasmohq/prettier-plugin-sort-imports": "3.5.1",
-    "@plasmohq/rps": "1.5.1",
-    "@types/node": "18.7.20",
+    "@plasmohq/prettier-plugin-sort-imports": "3.5.2",
+    "@plasmohq/rps": "1.5.2",
+    "@types/node": "18.7.23",
     "cross-env": "7.0.3",
     "esbuild": "0.15.9",
     "jest": "29.0.3",
