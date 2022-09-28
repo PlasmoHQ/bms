@@ -12,7 +12,7 @@ import { validateOptions } from "~utils/validator"
 
 export type IteroOptions = Options & CommonOptions
 
-const market = BrowserName.Firefox
+const market = BrowserName.Itero
 
 const vLog = getVerboseLogger(market)
 
