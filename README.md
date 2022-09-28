@@ -27,13 +27,14 @@
 
 # Browser Market Submit
 
-A nodejs library from [plasmo](https://www.plasmo.com/) to submit browser extensions to multiple stores. It is made to be used in the [Browser Platform Publisher](https://bpp.browser.market) action.
+A NodeJS library from [Plasmo](https://www.plasmo.com/) to submit browser extensions to multiple stores. It is made to be used in the [Browser Platform Publisher](https://bpp.browser.market) action.
 
 Supported stores:
 
 - [Chrome Web Store](https://chrome.google.com/webstore/category/extensions)
 - [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/extensions)
 - [Edge Add-ons](https://microsoftedge.microsoft.com/addons)
+- [Itero TestBed](https://itero.plasmo.com)
 
 Unsupported stores:
 

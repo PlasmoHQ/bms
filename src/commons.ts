@@ -2,20 +2,23 @@ export enum BrowserName {
   Chrome = "chrome",
   Firefox = "firefox",
   Opera = "opera",
-  Edge = "edge"
+  Edge = "edge",
+  Itero = "itero"
 }
 
 export const supportedBrowserSet = new Set([
   BrowserName.Chrome,
   BrowserName.Edge,
-  BrowserName.Firefox
+  BrowserName.Firefox,
+  BrowserName.Itero
   // BrowserName.Opera,
 ])
 
 export const marketNameMap = {
   [BrowserName.Chrome]: "Chrome Web Store",
   [BrowserName.Edge]: "Edge Add-ons",
-  [BrowserName.Firefox]: "Firefox Add-ons"
+  [BrowserName.Firefox]: "Firefox Add-ons",
+  [BrowserName.Itero]: "Itero TestBed"
   // [BrowserName.Opera]: "Opera Add-ons",
 }
 

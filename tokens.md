@@ -3,7 +3,7 @@
 - [Chrome Web Store](#chrome-web-store-api)
 - [Firefox Add-ons](#firefox-add-ons-api)
 - [Edge Add-ons](#edge-add-ons-api)
-- [Opera Add-ons](#opera-add-ons-api)
+- [Itero TestBed](#itero-testbed-api)
 
 ## Chrome Web Store API
 
@@ -57,35 +57,19 @@ Returns `Promise<true>` or throws an exception.
 >
 > Therefore, expect for longer wait times if you run the tool on an extension you had just published/canceled.
 
-## Opera Add-ons API
+## Itero TestBed API
 
-> NOTE: Support for Opera Store has been DROPPED due to their client token and cookie expires in 24 hours, which is not suitable for CI/CD pipeline. It's easier to just drag/drop the zip file on their extension page.
+`submitItero`
 
-`submitOpera`
-
-| Argument    | Description | How to Obtain                                                                                                                                                   |
-| ----------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `packageId` | string      | `https://addons.opera.com/developer/package/PACKAGE_ID`                                                                                                         |
-| `sessionid` | string      | web-ext-deploy --get-cookies=opera                                                                                                                              |
-| `csrftoken` | string      | web-ext-deploy --get-cookies=opera                                                                                                                              |
-| `zip`       | string      | The relative path from the root to the ZIP. You can use `{version}` in the ZIP filename, which will be replaced by the `version` entry from your `package.json` |
-| `verbose`   | boolean?    | If `true`, every step of uploading to the Firefox Add-ons will be logged to the console.                                                                        |
-| `changelog` | string?     | The changes made in this version, compared to the previous one, which will be seen by the Opera users.                                                          |
+| Argument     | Description | How to Obtain                                                                                                                                                   |
+| ------------ | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `privateKey` | string      | https://itero.plasmo.com                                                                                                                                        |
+| `token`      | string      |                                                                                                                                                                 |
+| `userId`     | string      |                                                                                                                                                                 |
+| `zip`        | string      | The relative path from the root to the ZIP. You can use `{version}` in the ZIP filename, which will be replaced by the `version` entry from your `package.json` |
+| `verbose`    | boolean?    | If `true`, every step of uploading to the Firefox Add-ons will be logged to the console.                                                                        |
 
 Returns `Promise<true>` or throws an exception.
-
-> **Notes:**
->
-> - Source code inspection:  
->   The Opera Add-ons reviewers require inspecting your extension's source code.  
->   This can be done by doing **one** of the following:
->
-> - Uploading the ZIP that contains the [source code](https://www.npmjs.com/package/zip-self) to a public folder on a storage service (e.g. [Google Drive](https://drive.google.com))
-> - Making the extension's code open source on a platform like GitHub, with clear instructions on the `README.md`, and then linking to its repository.
->
-> You **do not** want to store the deployment script with your extension package, as the review team will have access to your precious cookies.
->
-> If you'll open-source the extension on GitHub, you can exclude the deployment script by listing it in `.gitignore`
 
 # Acknowledgements
 
