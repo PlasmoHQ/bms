@@ -5,6 +5,18 @@
 - [Edge Add-ons](#edge-add-ons-api)
 - [Itero TestBed](#itero-testbed-api)
 
+## Common Options
+
+These properties are available to every client API calls:
+
+| Argument      | Description | How to Obtain                                                                                                                             |
+| ------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `zip`         | string      | Relative path from the root to the ZIP. You can use `{version}` template string to substitute the `version` entry from your `versionFile` |
+| `file`        | string?     | Alias to zip                                                                                                                              |
+| `versionFile` | string?     | Relative path to a json file which has a `version` field. Defaults to `package.json`                                                      |
+| `verbose`     | boolean?    | Enable verbose logging                                                                                                                    |
+| `note`        | string?     | Notes for certification, which will be visible to the extension reviewers (recommended for Edge)                                          |
+
 ## Chrome Web Store API
 
 `submitChrome`
@@ -16,8 +28,6 @@
 | `clientId`     | string      | [Guide (same as refreshToken)](https://github.com/PlasmoHQ/chrome-webstore-api/blob/main/token.md)                                                |
 | `clientSecret` | string      | [Guide (same as refreshToken)](https://github.com/PlasmoHQ/chrome-webstore-api/blob/main/token.md)                                                |
 | `target`       | string      | The target to deploy to, either "default" or "trustedTesters". Defaults to "default".                                                             |
-| `zip`          | string      | The relative path from the root to the ZIP. You can use `{version}` to use the `version` entry from your `package.json`                           |
-| `verbose`      | boolean?    | Enable verbose logging                                                                                                                            |
 
 Returns `Promise<true>` or throws an exception on failure.
 
@@ -30,8 +40,6 @@ Returns `Promise<true>` or throws an exception on failure.
 | `apiKey`    | string      | https://addons.mozilla.org/en-US/developers/addon/api/key/                                                                                                                                                   |
 | `apiSecret` | string      | https://addons.mozilla.org/en-US/developers/addon/api/key/                                                                                                                                                   |
 | `extId`     | string      | This is the extension UUID, get it from https://addons.mozilla.org/en-US/developers/addon/{ext-name}/edit, under Technical Details. If it is embedded in your manifest under gecko.id, _omit this property_. |
-| `zip`       | string      | The relative path from the root to the ZIP. You can use `{version}` in the ZIP filename, which will be replaced by the `version` entry from your `package.json`                                              |
-| `verbose`   | boolean?    | If `true`, every step of uploading to the Firefox Add-ons will be logged to the console.                                                                                                                     |
 
 Returns `Promise<true>` or throws an exception.
 
@@ -39,15 +47,12 @@ Returns `Promise<true>` or throws an exception.
 
 `submitEdge`
 
-| Argument         | Description | How to Obtain                                                                                                                                                   |
-| ---------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `productId`      | string      | Create an edge add-on and go to the dashboard: `https://partner.microsoft.com/en-us/dashboard/microsoftedge/{product-id}/package/dashboard`                     |
-| `clientId`       | string      | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                                          |
-| `clientSecret`   | string      | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                                          |
-| `accessTokenUrl` | string      | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                                          |
-| `zip`            | string      | The relative path from the root to the ZIP. You can use `{version}` in the ZIP filename, which will be replaced by the `version` entry from your `package.json` |
-| `verbose`        | boolean?    | If `true`, every step of uploading to the Firefox Add-ons will be logged to the console.                                                                        |
-| `note`           | string?     | Notes for certification, which will be visible to the Edge Add-ons reviewers                                                                                    |
+| Argument         | Description | How to Obtain                                                                                                                               |
+| ---------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `productId`      | string      | Create an edge add-on and go to the dashboard: `https://partner.microsoft.com/en-us/dashboard/microsoftedge/{product-id}/package/dashboard` |
+| `clientId`       | string      | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                      |
+| `clientSecret`   | string      | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                      |
+| `accessTokenUrl` | string      | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                      |
 
 Returns `Promise<true>` or throws an exception.
 
@@ -61,13 +66,11 @@ Returns `Promise<true>` or throws an exception.
 
 `submitItero`
 
-| Argument     | Description | How to Obtain                                                                                                                                                   |
-| ------------ | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `privateKey` | string      | https://itero.plasmo.com                                                                                                                                        |
-| `token`      | string      |                                                                                                                                                                 |
-| `userId`     | string      |                                                                                                                                                                 |
-| `zip`        | string      | The relative path from the root to the ZIP. You can use `{version}` in the ZIP filename, which will be replaced by the `version` entry from your `package.json` |
-| `verbose`    | boolean?    | If `true`, every step of uploading to the Firefox Add-ons will be logged to the console.                                                                        |
+| Argument     | Description | How to Obtain            |
+| ------------ | ----------- | ------------------------ |
+| `privateKey` | string      | https://itero.plasmo.com |
+| `token`      | string      |                          |
+| `userId`     | string      |                          |
 
 Returns `Promise<true>` or throws an exception.
 

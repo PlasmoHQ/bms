@@ -1,4 +1,4 @@
-import { BrowserName } from "~commons"
+import { BrowserName, CommonOptions } from "~commons"
 
 import { getFullPath, getIsFileExists } from "./file"
 
@@ -8,7 +8,7 @@ function getErrorMessage(market: BrowserName, message: string): string {
 
 export const validateOptions = ({
   market = BrowserName.Chrome,
-  options = {} as Record<string, any>,
+  options = {} as CommonOptions,
   errorMap = {} as Record<string, string>
 }) => {
   const requiredFields = Object.keys(errorMap)
@@ -18,13 +18,18 @@ export const validateOptions = ({
     }
   })
 
-  if (!options.zip) {
-    throw new Error(getErrorMessage(market, "No zip provided"))
+  if (!options.zip || !options.file) {
+    throw new Error(getErrorMessage(market, "No extension bundle provided"))
   }
 
-  if (!getIsFileExists(options.zip)) {
+  const filePath = options.zip || options.file
+
+  if (!getIsFileExists(filePath)) {
     throw new Error(
-      getErrorMessage(market, `Zip doesn't exist: ${getFullPath(options.zip)}`)
+      getErrorMessage(
+        market,
+        `Extension bundle file doesn't exist: ${getFullPath(filePath)}`
+      )
     )
   }
 }

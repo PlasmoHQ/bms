@@ -3,19 +3,24 @@ import { existsSync, readFileSync } from "fs"
 import { resolve } from "path"
 import { cwd } from "process"
 
+import type { CommonOptions } from "~commons"
+
 export const getFullPath = (file: string) => resolve(cwd(), file)
 
 export const getIsFileExists = (file: string) => existsSync(getFullPath(file))
 
 export function getCorrectZip({
   zip = "",
+  file = "",
   versionFile = "package.json"
-}): string {
-  if (getIsFileExists(versionFile) && zip.includes("{version}")) {
+}: CommonOptions): string {
+  const output = zip || file
+
+  if (getIsFileExists(versionFile) && output.includes("{version}")) {
     const packageJson = JSON.parse(readFileSync(versionFile).toString())
-    return zip.replace("{version}", packageJson.version || "")
+    return output.replace("{version}", packageJson.version || "")
   } else {
-    return zip
+    return output
   }
 }
 

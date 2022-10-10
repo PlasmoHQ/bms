@@ -30,6 +30,11 @@ export type CommonOptions = {
   zip: string
 
   /**
+   * Alias to zip
+   */
+  file?: string
+
+  /**
    * The path to a json file which has a `version` field. Defaults to `package.json`
    */
   versionFile?: string

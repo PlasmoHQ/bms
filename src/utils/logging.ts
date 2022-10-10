@@ -39,6 +39,7 @@ const verboseLogMap = {} as Record<BrowserName, boolean>
 
 export const enableVerboseLogging = (market: BrowserName) => {
   verboseLogMap[market] = true
+  process.env.VERBOSE = "true"
 }
 
 export function getVerboseLogger(market = "" as BrowserName) {
