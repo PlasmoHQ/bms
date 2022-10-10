@@ -18,7 +18,7 @@ export const validateOptions = ({
     }
   })
 
-  if (!options.zip || !options.file) {
+  if (!options.zip && !options.file) {
     throw new Error(getErrorMessage(market, "No extension bundle provided"))
   }
 
