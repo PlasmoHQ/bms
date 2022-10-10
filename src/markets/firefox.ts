@@ -23,7 +23,11 @@ const vLog = getVerboseLogger(market)
 async function submit({ extId, zip, dryRun, ...opts }: FirefoxOptions) {
   const manifest = getManifestJson(zip)
 
-  const id = manifest["browser_specific_settings"]?.["gecko"]?.["id"] || extId
+  const id =
+    manifest["browser_specific_settings"]?.["gecko"]?.["id"] ||
+    manifest["applications"]?.["gecko"]?.["id"] ||
+    extId
+
   const client = new MozillaAddonsAPI({
     extId: id,
     ...opts
