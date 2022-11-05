@@ -34,7 +34,6 @@ Supported stores:
 - [Chrome Web Store](https://chrome.google.com/webstore/category/extensions)
 - [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/extensions)
 - [Edge Add-ons](https://microsoftedge.microsoft.com/addons)
-- [Itero TestBed](https://itero.plasmo.com)
 
 Unsupported stores:
 

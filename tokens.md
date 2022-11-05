@@ -3,7 +3,6 @@
 - [Chrome Web Store](#chrome-web-store-api)
 - [Firefox Add-ons](#firefox-add-ons-api)
 - [Edge Add-ons](#edge-add-ons-api)
-- [Itero TestBed](#itero-testbed-api)
 
 ## Common Options
 
@@ -61,18 +60,6 @@ Returns `Promise<true>` or throws an exception.
 > Due to the way the Edge dashboard works, when an extension is being reviewed or its review has just been canceled, it will take about a minute until a cancellation will cause its state to change from "In review" to "In draft", after which the new version can be submitted.
 >
 > Therefore, expect for longer wait times if you run the tool on an extension you had just published/canceled.
-
-## Itero TestBed API
-
-`submitItero`
-
-| Argument     | Description | How to Obtain            |
-| ------------ | ----------- | ------------------------ |
-| `privateKey` | string      | https://itero.plasmo.com |
-| `token`      | string      |                          |
-| `userId`     | string      |                          |
-
-Returns `Promise<true>` or throws an exception.
 
 # Acknowledgements
 
