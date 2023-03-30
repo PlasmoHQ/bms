@@ -48,6 +48,7 @@ async function submit({
       filePath: zip,
       target
     })
+
     logSuccessfullyPublished({ extId, market, zip })
 
     return true

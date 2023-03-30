@@ -1,6 +1,6 @@
 {
   "name": "@plasmohq/bms",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "Browser Market Submission",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -37,18 +37,18 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@jest/globals": "29.3.1",
-    "@plasmohq/prettier-plugin-sort-imports": "3.6.1",
-    "@plasmohq/rps": "1.8.1",
-    "@types/node": "18.11.18",
+    "@jest/globals": "29.5.0",
+    "@plasmohq/prettier-plugin-sort-imports": "3.6.3",
+    "@plasmohq/rps": "1.8.4",
+    "@types/node": "18.15.11",
     "cross-env": "7.0.3",
-    "esbuild": "0.17.0",
-    "jest": "29.3.1",
-    "prettier": "2.8.3",
-    "rimraf": "4.0.7",
+    "esbuild": "0.17.14",
+    "jest": "29.5.0",
+    "prettier": "2.8.7",
+    "rimraf": "4.4.1",
     "ts-jest": "29.0.5",
-    "tsup": "6.5.0",
-    "typescript": "4.9.4"
+    "tsup": "6.7.0",
+    "typescript": "5.0.2"
   },
   "dependencies": {
     "@plasmohq/chrome-webstore-api": "workspace:*",
@@ -56,6 +56,6 @@
     "@plasmohq/mozilla-addons-api": "workspace:*",
     "compare-versions": "6.0.0-rc.1",
     "fflate": "0.7.4",
-    "parse-duration": "1.0.2"
+    "parse-duration": "1.0.3"
   }
 }
