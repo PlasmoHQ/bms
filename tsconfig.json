@@ -15,11 +15,10 @@
     "esModuleInterop": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
-    "isolatedModules": true,
-    "module": "commonjs",
+    "module": "ESNext",
     "target": "es6",
     "allowJs": true,
-    "importsNotUsedAsValues": "error"
+    "verbatimModuleSyntax": true
   },
   "include": ["src/**/*"]
 }

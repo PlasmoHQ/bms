@@ -1,7 +1,7 @@
 import {
   ChromeWebstoreAPI,
-  Options,
-  PublishTarget,
+  type Options,
+  type PublishTarget,
   errorMap
 } from "@plasmohq/chrome-webstore-api"
 

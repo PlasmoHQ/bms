@@ -1,6 +1,10 @@
-import { EdgeAddonsAPI, Options, errorMap } from "@plasmohq/edge-addons-api"
+import {
+  EdgeAddonsAPI,
+  type Options,
+  errorMap
+} from "@plasmohq/edge-addons-api"
 
-import { BrowserName, CommonOptions } from "~commons"
+import { BrowserName, type CommonOptions } from "~commons"
 import { getVerboseError } from "~utils/error"
 import { getCorrectZip, getManifestJson } from "~utils/file"
 import {

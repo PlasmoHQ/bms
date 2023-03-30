@@ -3,7 +3,7 @@ import { getCorrectZip } from "~utils/file.js"
 import { enableVerboseLogging } from "~utils/logging"
 import { validateOptions } from "~utils/validator.js"
 
-import { OperaOptions, errorMap } from "./options"
+import { type OperaOptions, errorMap } from "./options"
 
 export type { OperaOptions }
 

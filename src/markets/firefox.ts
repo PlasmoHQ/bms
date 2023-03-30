@@ -1,10 +1,10 @@
 import {
   MozillaAddonsAPI,
-  Options,
+  type Options,
   errorMap
 } from "@plasmohq/mozilla-addons-api"
 
-import { BrowserName, CommonOptions } from "~commons"
+import { BrowserName, type CommonOptions } from "~commons"
 import { getVerboseError } from "~utils/error"
 import { getCorrectZip, getManifestJson } from "~utils/file"
 import {
