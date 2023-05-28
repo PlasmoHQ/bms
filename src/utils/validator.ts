@@ -1,4 +1,4 @@
-import { BrowserName, CommonOptions } from "~commons"
+import { BrowserName, type CommonOptions } from "~commons"
 
 import { getFullPath, getIsFileExists } from "./file"
 

@@ -55,6 +55,7 @@
     "@plasmohq/edge-addons-api": "workspace:*",
     "@plasmohq/itero-testbed-api": "0.7.0",
     "@plasmohq/mozilla-addons-api": "workspace:*",
+    "@plasmo/config": "workspace:*",
     "compare-versions": "6.0.0-rc.1",
     "fflate": "0.8.0",
     "parse-duration": "1.0.3"
