@@ -8,25 +8,25 @@
 
 These properties are available to every client API calls:
 
-| Argument      | Description | How to Obtain                                                                                                                             |
-| ------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `zip`         | string      | Relative path from the root to the ZIP. You can use `{version}` template string to substitute the `version` entry from your `versionFile` |
-| `file`        | string?     | Alias to zip                                                                                                                              |
-| `versionFile` | string?     | Relative path to a json file which has a `version` field. Defaults to `package.json`                                                      |
-| `verbose`     | boolean?    | Enable verbose logging                                                                                                                    |
-| `note`        | string?     | Notes for certification, which will be visible to the extension reviewers (recommended for Edge)                                          |
+| Argument      | Type     | How to Obtain                                                                                                                             |
+| ------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `zip`         | string   | Relative path from the root to the ZIP. You can use `{version}` template string to substitute the `version` entry from your `versionFile` |
+| `file`        | string?  | Alias to zip                                                                                                                              |
+| `versionFile` | string?  | Relative path to a json file which has a `version` field. Defaults to `package.json`                                                      |
+| `verbose`     | boolean? | Enable verbose logging                                                                                                                    |
+| `note`        | string?  | Notes for certification, which will be visible to the extension reviewers (recommended for Edge)                                          |
 
 ## Chrome Web Store API
 
 `submitChrome`
 
-| Argument       | Description | How to Obtain                                                                                                                                     |
-| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `extId`        | string      | Get it from `https://chrome.google.com/webstore/detail/EXT_ID`, e.g. `https://chrome.google.com/webstore/detail/fcphghnknhkimeagdglkljinmpbagone` |
-| `refreshToken` | string      | [Guide](https://github.com/PlasmoHQ/chrome-webstore-api/blob/main/token.md)                                                                       |
-| `clientId`     | string      | [Guide (same as refreshToken)](https://github.com/PlasmoHQ/chrome-webstore-api/blob/main/token.md)                                                |
-| `clientSecret` | string      | [Guide (same as refreshToken)](https://github.com/PlasmoHQ/chrome-webstore-api/blob/main/token.md)                                                |
-| `target`       | string      | The target to deploy to, either "default" or "trustedTesters". Defaults to "default".                                                             |
+| Argument       | Type                           | How to Obtain                                                                                                                                     |
+| -------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `extId`        | string                         | Get it from `https://chrome.google.com/webstore/detail/EXT_ID`, e.g. `https://chrome.google.com/webstore/detail/fcphghnknhkimeagdglkljinmpbagone` |
+| `refreshToken` | string                         | [Guide](https://github.com/PlasmoHQ/chrome-webstore-api/blob/main/token.md)                                                                       |
+| `clientId`     | string                         | [Guide (same as refreshToken)](https://github.com/PlasmoHQ/chrome-webstore-api/blob/main/token.md)                                                |
+| `clientSecret` | string                         | [Guide (same as refreshToken)](https://github.com/PlasmoHQ/chrome-webstore-api/blob/main/token.md)                                                |
+| `target`       | enum (default, trustedTesters) | The target to deploy to, either "default" or "trustedTesters". Defaults to "default".                                                             |
 
 Returns `Promise<true>` or throws an exception on failure.
 
@@ -34,11 +34,13 @@ Returns `Promise<true>` or throws an exception on failure.
 
 `submitFirefox`
 
-| Argument    | Description | How to Obtain                                                                                                                                                                                                |
-| ----------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `apiKey`    | string      | https://addons.mozilla.org/en-US/developers/addon/api/key/                                                                                                                                                   |
-| `apiSecret` | string      | https://addons.mozilla.org/en-US/developers/addon/api/key/                                                                                                                                                   |
-| `extId`     | string      | This is the extension UUID, get it from https://addons.mozilla.org/en-US/developers/addon/{ext-name}/edit, under Technical Details. If it is embedded in your manifest under gecko.id, _omit this property_. |
+| Argument    | Type                    | How to Obtain                                                                                                                                                                                                |
+| ----------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `apiKey`    | string                  | https://addons.mozilla.org/en-US/developers/addon/api/key/                                                                                                                                                   |
+| `apiSecret` | string                  | https://addons.mozilla.org/en-US/developers/addon/api/key/                                                                                                                                                   |
+| `extId`     | string                  | This is the extension UUID, get it from https://addons.mozilla.org/en-US/developers/addon/{ext-name}/edit, under Technical Details. If it is embedded in your manifest under gecko.id, _omit this property_. |
+| `license`   | string                  | See: https://addons-server.readthedocs.io/en/latest/topics/api/licenses.html                                                                                                                                 |
+| `channel`   | enum (listed, unlisted) | The channel to publish to                                                                                                                                                                                    |
 
 Returns `Promise<true>` or throws an exception.
 
@@ -46,12 +48,12 @@ Returns `Promise<true>` or throws an exception.
 
 `submitEdge`
 
-| Argument         | Description | How to Obtain                                                                                                                               |
-| ---------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `productId`      | string      | Create an edge add-on and go to the dashboard: `https://partner.microsoft.com/en-us/dashboard/microsoftedge/{product-id}/package/dashboard` |
-| `clientId`       | string      | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                      |
-| `clientSecret`   | string      | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                      |
-| `accessTokenUrl` | string      | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                      |
+| Argument         | Type   | How to Obtain                                                                                                                               |
+| ---------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `productId`      | string | Create an edge add-on and go to the dashboard: `https://partner.microsoft.com/en-us/dashboard/microsoftedge/{product-id}/package/dashboard` |
+| `clientId`       | string | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                      |
+| `clientSecret`   | string | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                      |
+| `accessTokenUrl` | string | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                      |
 
 Returns `Promise<true>` or throws an exception.
 
