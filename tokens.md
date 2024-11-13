@@ -52,8 +52,7 @@ Returns `Promise<true>` or throws an exception.
 | ---------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | `productId`      | string | Create an edge add-on and go to the dashboard: `https://partner.microsoft.com/en-us/dashboard/microsoftedge/{product-id}/package/dashboard` |
 | `clientId`       | string | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                      |
-| `clientSecret`   | string | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                      |
-| `accessTokenUrl` | string | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                      |
+| `apiKey`   | string | https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi                                                                      |
 
 Returns `Promise<true>` or throws an exception.
 
