@@ -93,10 +93,9 @@ submitFirefox({
 })
 
 submitEdge({
-  clientId: "aaaaaaa-aaaa-bbbb-cccc-dddddddddddd",
-  clientSecret: "abcdefg",
   productId: "aaaaaaa-aaaa-bbbb-cccc-dddddddddddd",
-  accessTokenUrl: "https://login.microsoftonline.com/aaaaaaa-aaaa-bbbb-cccc-dddddddddddd/oauth2/v2.0/token",
+  clientId: "aaaaaaa-aaaa-bbbb-cccc-dddddddddddd",
+  apiKey: "abcdefg",
   zip: "dist/some-zip-v{version}.zip",
   notes: "Changes for reviewers",
   verbose: false
