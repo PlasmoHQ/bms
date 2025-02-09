@@ -1,6 +1,6 @@
 {
   "name": "@plasmohq/bms",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "Browser Market Submission",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
